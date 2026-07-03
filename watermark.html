@@ -592,9 +592,91 @@ canvas:active {
             canvas.style.cursor = 'grab';
         }
         
+        function getTouchCoord(e) {
+            if (e.touches.length === 0) return null;
+            const touch = e.touches[0];
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            let touchX = (touch.clientX - rect.left) * scaleX;
+            let touchY = (touch.clientY - rect.top) * scaleY;
+            touchX = Math.min(Math.max(0, touchX), canvas.width);
+            touchY = Math.min(Math.max(0, touchY), canvas.height);
+            return { x: touchX, y: touchY };
+        }
+        
+        function onTouchStart(e) {
+            if (!imgLoaded) return;
+            const pos = getTouchCoord(e);
+            if (!pos) return;
+            const hit = hitTest(pos.x, pos.y);
+            if (!hit) return;
+            isDragging = true;
+            currentAction = hit;
+            dragStart = { x: pos.x, y: pos.y };
+            startBox = { ...box };
+            e.preventDefault();
+        }
+        
+        function onTouchMove(e) {
+            if (!isDragging || !imgLoaded) return;
+            const pos = getTouchCoord(e);
+            if (!pos) return;
+            const dx = pos.x - dragStart.x;
+            const dy = pos.y - dragStart.y;
+            
+            if (currentAction.type === 'move') {
+                box.x = startBox.x + dx;
+                box.y = startBox.y + dy;
+                box.x = Math.min(Math.max(box.x, -box.width + 10), canvas.width - 10);
+                box.y = Math.min(Math.max(box.y, -box.height + 10), canvas.height - 10);
+            } 
+            else if (currentAction.type === 'resize') {
+                let newW = startBox.width, newH = startBox.height, newX = startBox.x, newY = startBox.y;
+                switch(currentAction.corner) {
+                    case 'tl':
+                        newW = startBox.width - dx; newH = startBox.height - dy;
+                        newX = startBox.x + dx; newY = startBox.y + dy; break;
+                    case 'tr':
+                        newW = startBox.width + dx; newH = startBox.height - dy;
+                        newY = startBox.y + dy; break;
+                    case 'bl':
+                        newW = startBox.width - dx; newH = startBox.height + dy;
+                        newX = startBox.x + dx; break;
+                    case 'br':
+                        newW = startBox.width + dx; newH = startBox.height + dy; break;
+                }
+                if (newW < 40) newW = 40;
+                if (newH < 30) newH = 30;
+                box.width = newW; box.height = newH; box.x = newX; box.y = newY;
+                box.x = Math.min(Math.max(box.x, -box.width + 10), canvas.width - 10);
+                box.y = Math.min(Math.max(box.y, -box.height + 10), canvas.height - 10);
+            }
+            else if (currentAction.type === 'rotate') {
+                const centerX = startBox.x + startBox.width/2;
+                const centerY = startBox.y + startBox.height/2;
+                const startAngle = Math.atan2(dragStart.y - centerY, dragStart.x - centerX);
+                const currentAngle = Math.atan2(pos.y - centerY, pos.x - centerX);
+                box.angle = startBox.angle + (currentAngle - startAngle) * 180 / Math.PI;
+                box.angle = box.angle % 360;
+            }
+            drawScene();
+            e.preventDefault();
+        }
+        
+        function onTouchEnd() {
+            isDragging = false;
+            currentAction = null;
+        }
+        
         canvas.addEventListener('mousedown', onMouseDown);
         window.addEventListener('mousemove', onMouseMove);
         window.addEventListener('mouseup', onMouseUp);
+        
+        canvas.addEventListener('touchstart', onTouchStart, { passive: false });
+        window.addEventListener('touchmove', onTouchMove, { passive: false });
+        window.addEventListener('touchend', onTouchEnd);
+        
         canvas.style.cursor = 'grab';
         
         function refresh() { if (imgLoaded) drawScene(); }

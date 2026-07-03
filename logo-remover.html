@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Logo Remover Online - Remove Logos from Photos for Free | PicShift</title>
+    <meta name="description" content="Remove logos, text, watermarks, and graphics from photos online. Easy smart brush tool erases any logo instantly. No upload required, 100% secure.">
+    <meta name="keywords" content="logo remover, remove logo from photo, remove logo online, erase graphics from image, text eraser, free image editor">
+    <meta name="author" content="VaultKit Technologies">
+    <link rel="canonical" href="https://picshift.me/logo-remover.html">
+    <!-- Open Graph (Facebook/WhatsApp/LinkedIn) -->
+    <meta property="og:title" content="Logo Remover Online - Remove Logos from Photos for Free | PicShift">
+    <meta property="og:description" content="Remove logos, text, watermarks, and graphics from photos online. Easy smart brush tool erases any logo instantly. No upload required, 100% secure.">
+    <meta property="og:url" content="https://picshift.me/logo-remover.html">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://picshift.me/logo.png">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Logo Remover Online - Remove Logos from Photos for Free | PicShift">
+    <meta name="twitter:description" content="Remove logos, text, watermarks, and graphics from photos online. Easy smart brush tool erases any logo instantly. No upload required, 100% secure.">
+    <meta name="twitter:image" content="https://picshift.me/logo.png">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Logo Remover Tool",
+      "url": "https://picshift.me/logo-remover.html",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires HTML5 canvas support",
+      "description": "Remove logos, text, watermarks, and graphics from photos online. Easy smart brush tool erases any logo instantly. No upload required, 100% secure.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="global.js" defer></script>
+    <style>
+        .page-title { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
+        .page-subtitle { color: var(--text-secondary); margin-bottom: 2rem; }
+        
+        .workspace-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .editor-wrapper {
+            position: relative;
+            background: var(--bg-input);
+            border-radius: 16px;
+            padding: 1rem;
+            border: 1px solid var(--border-main);
+            max-width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        .canvas-container {
+            position: relative;
+            max-width: 100%;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        canvas {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        
+        #maskCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 10;
+            cursor: crosshair;
+            opacity: 0.65;
+        }
+        
+        .brush-controls {
+            background: var(--bg-input);
+            padding: 1.2rem;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 500px;
+            border: 1px solid var(--border-main);
+            margin: 1rem 0;
+        }
+        
+        .brush-label-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        
+        .brush-val { color: var(--primary-main); }
+        
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            width: 100%;
+            justify-content: center;
+        }
+        
+        .how-to {
+            background: #F0F9FF;
+            border-radius: 20px;
+            padding: 1rem;
+            margin-top: 2rem;
+            border-left: 4px solid #299ACE;
+            color: #334155;
+        }
+        
+        .how-to h3 { color: var(--text-primary); margin-bottom: 0.5rem; }
+    </style>
+</head>
+<body>
+
+<main class="main-container">
+    <div class="tool-card">
+        <div class="tool-status">⚡ 100% Client-Side | Laplace Inpainting</div>
+        <h1 class="page-title">Logo Remover</h1>
+        <p class="page-subtitle">Paint over logos, symbols, or watermarks on your image, then click erase to make them disappear.</p>
+
+        <div id="uploadArea" class="upload-area">
+            <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+            <div class="upload-title">Drop your image here or click to browse</div>
+            <div class="upload-subtitle">Supports JPG, PNG, WebP | Max 30MB</div>
+            <input type="file" id="fileInput" accept="image/*" style="display: none;">
+        </div>
+
+        <div id="toolContainer" style="display: none;">
+            <div class="workspace-container">
+                <!-- Overlay canvas wrapper -->
+                <div class="editor-wrapper">
+                    <div class="canvas-container" id="canvasContainer">
+                        <canvas id="imageCanvas"></canvas>
+                        <canvas id="maskCanvas"></canvas>
+                    </div>
+                </div>
+                
+                <!-- Brush controls -->
+                <div class="brush-controls">
+                    <div class="brush-label-row">
+                        <span><i class="fas fa-paint-brush"></i> Brush Size</span>
+                        <span class="brush-val" id="brushVal">25px</span>
+                    </div>
+                    <input type="range" id="brushSize" min="5" max="80" value="25">
+                    <div class="slider-labels">
+                        <span>Fine selection</span>
+                        <span>Large area</span>
+                    </div>
+                </div>
+                
+                <!-- Action buttons -->
+                <div class="btn-group">
+                    <button id="eraseBtn" class="btn btn-success"><i class="fas fa-magic"></i> Erase Logo</button>
+                    <button id="downloadBtn" class="btn btn-primary" style="display: none;"><i class="fas fa-download"></i> Download Image</button>
+                    <button id="resetBtn" class="btn btn-secondary"><i class="fas fa-trash-alt"></i> Clear All</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="messageArea"></div>
+
+        <div class="how-to">
+            <h3><i class="fas fa-info-circle"></i> How to use</h3>
+            <ul style="margin-left: 1.5rem; font-size: 0.9rem; line-height: 1.6;">
+                <li>1. Upload a photo containing a logo, icon, or trademark.</li>
+                <li>2. Adjust the brush size and paint a red mask over the logo region.</li>
+                <li>3. Click <strong>Erase Logo</strong>. The Laplace diffusion algorithm will automatically replace the logo with surrounding pixels.</li>
+                <li>4. Download your cleaned image. Repeat on other areas if necessary.</li>
+            </ul>
+        </div>
+
+        <div class="trust-badge">
+            <h3><i class="fas fa-lock"></i> 100% Private & Client-Side</h3>
+            <p>Your photos are processed entirely inside your browser cache. They are never sent to a server.</p>
+        </div>
+
+        <div class="related-tools">
+            <h3>Related Tools</h3>
+            <div class="related-tools-list">
+                <a href="watermark-remover.html" class="related-tool-link"><i class="fas fa-magic"></i> Watermark Remover</a>
+                <a href="watermark.html" class="related-tool-link"><i class="fas fa-watermark"></i> Add Watermark</a>
+                <a href="compress-image.html" class="related-tool-link"><i class="fas fa-compress-alt"></i> Compress</a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    (function() {
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const toolContainer = document.getElementById('toolContainer');
+        const canvasContainer = document.getElementById('canvasContainer');
+        const imgCanvas = document.getElementById('imageCanvas');
+        const imgCtx = imgCanvas.getContext('2d');
+        const maskCanvas = document.getElementById('maskCanvas');
+        const maskCtx = maskCanvas.getContext('2d');
+        
+        const brushSizeSlider = document.getElementById('brushSize');
+        const brushValSpan = document.getElementById('brushVal');
+        const eraseBtn = document.getElementById('eraseBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const messageDiv = document.getElementById('messageArea');
+
+        let originalImage = new Image();
+        let imgLoaded = false;
+        let isDrawing = false;
+        let lastPos = { x: 0, y: 0 };
+        
+        function showMessage(msg, type) {
+            messageDiv.innerHTML = `<div class="${type}-message">${msg}</div>`;
+            setTimeout(() => messageDiv.innerHTML = '', 3500);
+        }
+
+        uploadArea.onclick = () => fileInput.click();
+        fileInput.onchange = (e) => e.target.files[0] && handleImage(e.target.files[0]);
+        
+        uploadArea.ondragover = (e) => e.preventDefault();
+        uploadArea.ondrop = (e) => {
+            e.preventDefault();
+            if (e.dataTransfer.files[0]) handleImage(e.dataTransfer.files[0]);
+        };
+
+        brushSizeSlider.oninput = () => {
+            brushValSpan.textContent = brushSizeSlider.value + 'px';
+        };
+
+        function handleImage(file) {
+            if (!file.type.startsWith('image/')) {
+                showMessage('Please select an image file', 'error');
+                return;
+            }
+            if (file.size > 30 * 1024 * 1024) {
+                showMessage('File too large (max 30MB)', 'error');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                originalImage.onload = () => {
+                    setupEditor();
+                    uploadArea.style.display = 'none';
+                    toolContainer.style.display = 'block';
+                    showMessage('Image loaded. Paint over the logo and click Erase.', 'success');
+                };
+                originalImage.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function setupEditor() {
+            const maxDimension = 1000;
+            let w = originalImage.width;
+            let h = originalImage.height;
+            
+            if (w > maxDimension || h > maxDimension) {
+                if (w > h) {
+                    h = Math.round((h * maxDimension) / w);
+                    w = maxDimension;
+                } else {
+                    w = Math.round((w * maxDimension) / h);
+                    h = maxDimension;
+                }
+            }
+            
+            imgCanvas.width = w;
+            imgCanvas.height = h;
+            maskCanvas.width = w;
+            maskCanvas.height = h;
+            
+            canvasContainer.style.width = w + 'px';
+            canvasContainer.style.height = h + 'px';
+            
+            imgCtx.drawImage(originalImage, 0, 0, w, h);
+            
+            maskCtx.clearRect(0, 0, w, h);
+            
+            imgLoaded = true;
+            downloadBtn.style.display = 'none';
+        }
+
+        // --- DRAWING LOGIC (SUPPORT FOR DESKTOP & MOBILE TOUCH) ---
+        function getCoords(e, canvasEl) {
+            const rect = canvasEl.getBoundingClientRect();
+            const scaleX = canvasEl.width / rect.width;
+            const scaleY = canvasEl.height / rect.height;
+            
+            let clientX, clientY;
+            if (e.touches && e.touches.length > 0) {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            } else {
+                clientX = e.clientX;
+                clientY = e.clientY;
+            }
+            
+            let x = (clientX - rect.left) * scaleX;
+            let y = (clientY - rect.top) * scaleY;
+            
+            return {
+                x: Math.min(Math.max(0, x), canvasEl.width),
+                y: Math.min(Math.max(0, y), canvasEl.height)
+            };
+        }
+
+        function drawStart(e) {
+            if (!imgLoaded) return;
+            isDrawing = true;
+            lastPos = getCoords(e, maskCanvas);
+            e.preventDefault();
+        }
+
+        function drawMove(e) {
+            if (!isDrawing || !imgLoaded) return;
+            const pos = getCoords(e, maskCanvas);
+            const brushSize = parseInt(brushSizeSlider.value);
+            
+            maskCtx.strokeStyle = 'rgba(239, 68, 68, 0.7)';
+            maskCtx.lineWidth = brushSize;
+            maskCtx.lineCap = 'round';
+            maskCtx.lineJoin = 'round';
+            
+            maskCtx.beginPath();
+            maskCtx.moveTo(lastPos.x, lastPos.y);
+            maskCtx.lineTo(pos.x, pos.y);
+            maskCtx.stroke();
+            
+            lastPos = pos;
+            e.preventDefault();
+        }
+
+        function drawEnd() {
+            isDrawing = false;
+        }
+
+        // Mouse listeners
+        maskCanvas.addEventListener('mousedown', drawStart);
+        window.addEventListener('mousemove', drawMove);
+        window.addEventListener('mouseup', drawEnd);
+        
+        // Touch listeners for mobile
+        maskCanvas.addEventListener('touchstart', drawStart, { passive: false });
+        window.addEventListener('touchmove', drawMove, { passive: false });
+        window.addEventListener('touchend', drawEnd);
+
+        // --- INPAINTING ALGORITHM (LAPLACE DIFFUSION / HARMONIC) ---
+        eraseBtn.onclick = () => {
+            if (!imgLoaded) return;
+            
+            showMessage('Erasing logo... Please wait.', 'success');
+            
+            setTimeout(() => {
+                const w = imgCanvas.width;
+                const h = imgCanvas.height;
+                const imgData = imgCtx.getImageData(0, 0, w, h);
+                const maskData = maskCtx.getImageData(0, 0, w, h);
+                
+                const pixels = imgData.data;
+                const mask = maskData.data;
+                
+                const maskedPixels = [];
+                for (let y = 0; y < h; y++) {
+                    for (let x = 0; x < w; x++) {
+                        const idx = (y * w + x) * 4;
+                        if (mask[idx + 3] > 10) {
+                            maskedPixels.push({ x, y, idx });
+                        }
+                    }
+                }
+                
+                if (maskedPixels.length === 0) {
+                    showMessage('Please paint over a logo first!', 'error');
+                    return;
+                }
+                
+                const iterations = 80;
+                for (let iter = 0; iter < iterations; iter++) {
+                    for (let i = 0; i < maskedPixels.length; i++) {
+                        const p = maskedPixels[i];
+                        const x = p.x;
+                        const y = p.y;
+                        const idx = p.idx;
+                        
+                        let rSum = 0, gSum = 0, bSum = 0, count = 0;
+                        
+                        if (x > 0) {
+                            const n = idx - 4;
+                            rSum += pixels[n]; gSum += pixels[n+1]; bSum += pixels[n+2]; count++;
+                        }
+                        if (x < w - 1) {
+                            const n = idx + 4;
+                            rSum += pixels[n]; gSum += pixels[n+1]; bSum += pixels[n+2]; count++;
+                        }
+                        if (y > 0) {
+                            const n = idx - w * 4;
+                            rSum += pixels[n]; gSum += pixels[n+1]; bSum += pixels[n+2]; count++;
+                        }
+                        if (y < h - 1) {
+                            const n = idx + w * 4;
+                            rSum += pixels[n]; gSum += pixels[n+1]; bSum += pixels[n+2]; count++;
+                        }
+                        
+                        if (count > 0) {
+                            pixels[idx] = rSum / count;
+                            pixels[idx+1] = gSum / count;
+                            pixels[idx+2] = bSum / count;
+                        }
+                    }
+                }
+                
+                imgCtx.putImageData(imgData, 0, 0);
+                maskCtx.clearRect(0, 0, w, h);
+                
+                downloadBtn.style.display = 'inline-flex';
+                showMessage('Logo erased successfully!', 'success');
+            }, 100);
+        };
+
+        // --- DOWNLOAD RESULT ---
+        downloadBtn.onclick = () => {
+            if (!imgLoaded) return;
+            const link = document.createElement('a');
+            link.download = `logo_removed_${Date.now()}.png`;
+            link.href = imgCanvas.toDataURL('image/png');
+            link.click();
+            showMessage('Downloaded!', 'success');
+        };
+
+        // --- RESET ---
+        resetBtn.onclick = () => {
+            imgLoaded = false;
+            originalImage = new Image();
+            toolContainer.style.display = 'none';
+            uploadArea.style.display = 'block';
+            fileInput.value = '';
+            downloadBtn.style.display = 'none';
+            messageDiv.innerHTML = '';
+        };
+    })();
+</script>
+</body>
+</html>

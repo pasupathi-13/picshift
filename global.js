@@ -27,6 +27,8 @@
         utilities: [
             { name: 'Rotate Image', url: 'rotate.html', icon: 'fas fa-undo-alt' },
             { name: 'Add Watermark', url: 'watermark.html', icon: 'fas fa-watermark' },
+            { name: 'Watermark Remover', url: 'watermark-remover.html', icon: 'fas fa-magic' },
+            { name: 'Logo Remover', url: 'logo-remover.html', icon: 'fas fa-eraser' },
             { name: 'PNG to JPG', url: 'png-to-jpg.html', icon: 'fas fa-file-image' }
         ]
     };
