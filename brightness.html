@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Adjust Image Brightness & Contrast Online | PicShift</title>
+    <meta name="description" content="Brighten or darken photos online. Fine-tune brightness and contrast levels of your images in real-time. Fast, free, and completely private.">
+    <meta name="keywords" content="adjust image brightness online, change image contrast online, brighten photo free, increase photo brightness">
+    <meta name="author" content="VaultKit Technologies">
+    <link rel="canonical" href="https://picshift.me/brightness.html">
+    <!-- Open Graph (Facebook/WhatsApp/LinkedIn) -->
+    <meta property="og:title" content="Adjust Image Brightness & Contrast Online | PicShift">
+    <meta property="og:description" content="Brighten or darken photos online. Fine-tune brightness and contrast levels of your images in real-time. Fast, free, and completely private.">
+    <meta property="og:url" content="https://picshift.me/brightness.html">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://picshift.me/logo.png">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Adjust Image Brightness & Contrast Online | PicShift">
+    <meta name="twitter:description" content="Brighten or darken photos online. Fine-tune brightness and contrast levels of your images in real-time. Fast, free, and completely private.">
+    <meta name="twitter:image" content="https://picshift.me/logo.png">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Image Brightness & Contrast Adjuster",
+      "url": "https://picshift.me/brightness.html",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires HTML5 canvas support",
+      "description": "Brighten or darken photos online. Fine-tune brightness and contrast levels of your images in real-time. Fast, free, and completely private.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    
+    
+    
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="global.js" defer></script>
+    <style>
+.page-title {
+ font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
+
+.page-subtitle {
+ color: #64748B; margin-bottom: 2rem; }
+
+.result-area {
+
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+
+.result-area img {
+
+            max-width: 100%;
+            max-height: 400px;
+            border-radius: 12px;
+            background: white;
+            border: 1px solid #E2E8F0;
+        }
+
+.info-badge {
+
+            background: #F8FAFC;
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            display: inline-block;
+        }
+
+.controls {
+
+            background: #F8FAFC;
+            padding: 1rem;
+            border-radius: 16px;
+            margin: 1rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+.control-group {
+
+            flex: 1;
+            min-width: 150px;
+        }
+
+.control-group label {
+
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #299ACE;
+        }
+
+.control-group input {
+
+            width: 100%;
+        }
+
+.control-group span {
+
+            display: inline-block;
+            margin-left: 0.5rem;
+            font-weight: 600;
+        }
+
+.how-to {
+
+            background: #F0F9FF;
+            border-radius: 20px;
+            padding: 1rem;
+            margin-top: 1.5rem;
+            border-left: 4px solid #299ACE;
+        }
+
+@media (max-width: 768px) {
+.controls {
+ flex-direction: column; }
+}
+    </style>
+</head>
+<body>
+
+<main class="main-container">
+    <div class="tool-card">
+        <div class="tool-status">⚡ 100% Client-Side | No Upload</div>
+        <h1 class="page-title">Brightness & Contrast</h1>
+        <p class="page-subtitle">Adjust brightness and contrast of your images instantly.</p>
+
+        <div id="uploadArea" class="upload-area">
+            <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+            <div class="upload-title">Drop your image here or click to browse</div>
+            <div class="upload-subtitle">Supports JPG, PNG, WebP, GIF | Max 50MB</div>
+            <input type="file" id="fileInput" accept="image/*" style="display: none;">
+        </div>
+
+        <div id="toolContainer" style="display: none;">
+            <!-- Adjusted Image Preview -->
+            <div class="result-area">
+                <h4><i class="fas fa-sliders-h"></i> Adjusted Image</h4>
+                <img id="adjustedPreview" alt="Adjusted">
+                <div id="infoBadge" class="info-badge"></div>
+            </div>
+
+            <!-- Controls placed below the image -->
+            <div class="controls">
+                <div class="control-group">
+                    <label>Brightness <i class="fas fa-sun"></i></label>
+                    <input type="range" id="brightness" min="-100" max="100" value="0">
+                    <span id="brightnessVal">0</span>
+                </div>
+                <div class="control-group">
+                    <label>Contrast <i class="fas fa-adjust"></i></label>
+                    <input type="range" id="contrast" min="-100" max="100" value="0">
+                    <span id="contrastVal">0</span>
+                </div>
+            </div>
+
+            <div class="btn-group">
+                <button id="downloadBtn" class="btn btn-success" style="display: none;"><i class="fas fa-download"></i> Download Adjusted Image</button>
+                <button id="resetBtn" class="btn btn-secondary"><i class="fas fa-trash-alt"></i> Clear All</button>
+            </div>
+        </div>
+
+        <div id="messageArea"></div>
+
+        <div class="how-to">
+            <h3><i class="fas fa-info-circle"></i> How to use</h3>
+            <ul style="margin-left: 1.5rem;">
+                <li>1. Upload an image.</li>
+                <li>2. Adjust brightness and contrast sliders – preview updates instantly.</li>
+                <li>3. Download your adjusted image.</li>
+            </ul>
+        </div>
+
+        <div class="trust-badge">
+            <h3><i class="fas fa-lock"></i> 100% Private & Secure</h3>
+            <p>All processing happens in your browser. No upload, no server.</p>
+        </div>
+
+        <div class="related-tools">
+            <h3>Related Tools</h3>
+            <div class="related-tools-list">
+                <a href="grayscale.html" class="related-tool-link"><i class="fas fa-adjust"></i> Grayscale</a>
+                <a href="blur.html" class="related-tool-link"><i class="fas fa-tint"></i> Blur</a>
+                <a href="image-to-hd.html" class="related-tool-link"><i class="fas fa-star"></i> Image to HD</a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    const uploadArea = document.getElementById('uploadArea');
+    const fileInput = document.getElementById('fileInput');
+    const toolContainer = document.getElementById('toolContainer');
+    const adjustedPreview = document.getElementById('adjustedPreview');
+    const infoBadge = document.getElementById('infoBadge');
+    const brightnessSlider = document.getElementById('brightness');
+    const brightnessVal = document.getElementById('brightnessVal');
+    const contrastSlider = document.getElementById('contrast');
+    const contrastVal = document.getElementById('contrastVal');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const messageDiv = document.getElementById('messageArea');
+
+    let originalImage = new Image();
+    let adjustedDataUrl = null;
+    let canvas = null;
+    let ctx = null;
+
+    function formatFileSize(bytes) {
+        if (bytes < 1024) return bytes + ' B';
+        if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(2) + ' KB';
+        return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+    }
+
+    function showMessage(msg, type) {
+        messageDiv.innerHTML = `<div class="${type}-message">${msg}</div>`;
+        setTimeout(() => messageDiv.innerHTML = '', 3000);
+    }
+
+    uploadArea.onclick = () => fileInput.click();
+    fileInput.onchange = (e) => e.target.files[0] && handleFile(e.target.files[0]);
+    uploadArea.ondragover = (e) => e.preventDefault();
+    uploadArea.ondrop = (e) => {
+        e.preventDefault();
+        if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+    };
+
+    function handleFile(file) {
+        if (!file.type.startsWith('image/')) {
+            showMessage('Please select an image file', 'error');
+            return;
+        }
+        if (file.size > 50 * 1024 * 1024) {
+            showMessage('File too large (max 50MB)', 'error');
+            return;
+        }
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            originalImage.onload = () => {
+                // Create canvas for adjustments
+                canvas = document.createElement('canvas');
+                canvas.width = originalImage.width;
+                canvas.height = originalImage.height;
+                ctx = canvas.getContext('2d');
+                ctx.drawImage(originalImage, 0, 0);
+                uploadArea.style.display = 'none';
+                toolContainer.style.display = 'block';
+                applyAdjustments();
+                showMessage('Image loaded. Adjust brightness and contrast.', 'success');
+            };
+            originalImage.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function applyAdjustments() {
+        let brightness = parseInt(brightnessSlider.value);
+        let contrast = parseInt(contrastSlider.value);
+        brightnessVal.textContent = brightness;
+        contrastVal.textContent = contrast;
+        
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.filter = `brightness(${100 + brightness}%) contrast(${100 + contrast}%)`;
+        ctx.drawImage(originalImage, 0, 0, canvas.width, canvas.height);
+        ctx.filter = 'none';
+        
+        adjustedDataUrl = canvas.toDataURL('image/png');
+        adjustedPreview.src = adjustedDataUrl;
+        const fileSize = Math.round((adjustedDataUrl.length * 3) / 4);
+        infoBadge.innerHTML = `${originalImage.width} × ${originalImage.height} px • ${formatFileSize(fileSize)}`;
+        downloadBtn.style.display = 'inline-flex';
+    }
+
+    brightnessSlider.addEventListener('input', applyAdjustments);
+    contrastSlider.addEventListener('input', applyAdjustments);
+
+    function downloadImage() {
+        if (!adjustedDataUrl) return;
+        const link = document.createElement('a');
+        link.download = `adjusted_${Date.now()}.png`;
+        link.href = adjustedDataUrl;
+        link.click();
+        showMessage('Adjusted image downloaded!', 'success');
+    }
+
+    function reset() {
+        originalImage = new Image();
+        adjustedDataUrl = null;
+        toolContainer.style.display = 'none';
+        uploadArea.style.display = 'block';
+        fileInput.value = '';
+        downloadBtn.style.display = 'none';
+        messageDiv.innerHTML = '';
+        adjustedPreview.src = '';
+        brightnessSlider.value = '0';
+        brightnessVal.textContent = '0';
+        contrastSlider.value = '0';
+        contrastVal.textContent = '0';
+    }
+
+    downloadBtn.onclick = downloadImage;
+    resetBtn.onclick = reset;
+</script>
+</body>
+</html>

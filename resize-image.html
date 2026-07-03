@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Resize Image Online - Change Dimensions for Free | PicShift</title>
+    <meta name="description" content="Resize images online with aspect ratio lock. Change width and height of JPG, PNG, and WebP photos instantly. 100% browser-based and secure.">
+    <meta name="keywords" content="resize image online, change image dimensions, resize photo free, resize image height and width, image resizer">
+    <meta name="author" content="VaultKit Technologies">
+    <link rel="canonical" href="https://picshift.me/resize-image.html">
+    <!-- Open Graph (Facebook/WhatsApp/LinkedIn) -->
+    <meta property="og:title" content="Resize Image Online - Change Dimensions for Free | PicShift">
+    <meta property="og:description" content="Resize images online with aspect ratio lock. Change width and height of JPG, PNG, and WebP photos instantly. 100% browser-based and secure.">
+    <meta property="og:url" content="https://picshift.me/resize-image.html">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://picshift.me/logo.png">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Resize Image Online - Change Dimensions for Free | PicShift">
+    <meta name="twitter:description" content="Resize images online with aspect ratio lock. Change width and height of JPG, PNG, and WebP photos instantly. 100% browser-based and secure.">
+    <meta name="twitter:image" content="https://picshift.me/logo.png">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Image Resizer Tool",
+      "url": "https://picshift.me/resize-image.html",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires HTML5 canvas support",
+      "description": "Resize images online with aspect ratio lock. Change width and height of JPG, PNG, and WebP photos instantly. 100% browser-based and secure.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    
+    
+    
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="global.js" defer></script>
+    <style>
+.page-title {
+ font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
+
+.page-subtitle {
+ color: #64748B; margin-bottom: 2rem; }
+
+.resize-controls {
+
+            background: #F8FAFC;
+            padding: 1.2rem;
+            border-radius: 16px;
+            margin: 1.5rem 0;
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+.resize-input {
+
+            flex: 1;
+            min-width: 150px;
+        }
+
+.resize-input label {
+
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #299ACE;
+        }
+
+.resize-input input {
+
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            font-size: 1rem;
+        }
+
+.aspect-check {
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+.preview-container {
+
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            margin: 1.5rem 0;
+        }
+
+.preview-card {
+
+            flex: 1;
+            min-width: 250px;
+            background: #F8FAFC;
+            border-radius: 20px;
+            padding: 1.2rem;
+            text-align: center;
+        }
+
+.preview-card img {
+
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 12px;
+            margin: 0.8rem 0;
+            background: white;
+            object-fit: contain;
+        }
+
+.dimension-badge {
+
+            background: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+.btn-primary {
+ background: #299ACE; color: white; }
+
+.btn-primary:hover {
+ background: #1E7BA3; transform: translateY(-2px); }
+
+.how-to {
+
+            background: #F0F9FF;
+            border-radius: 20px;
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #299ACE;
+        }
+
+.how-to h3 {
+
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: #299ACE;
+        }
+
+.how-to p, .how-to ul {
+
+            font-size: 0.85rem;
+            color: #334155;
+            margin-left: 1.2rem;
+        }
+
+.how-to li {
+
+            margin: 0.3rem 0;
+        }
+
+.content-section {
+ margin: 2rem 0; padding-top: 1rem; border-top: 1px solid #E2E8F0; }
+
+@media (max-width: 768px) {
+.page-title {
+ font-size: 1.5rem; }
+
+.preview-container {
+ flex-direction: column; }
+}
+    </style>
+</head>
+<body>
+
+<main class="main-container">
+        <div class="tool-card">
+            <div class="tool-status">⚡ 100% Client-Side | No Upload</div>
+            <h1 class="page-title">Resize Image</h1>
+            <p class="page-subtitle">Change image dimensions with aspect ratio control.</p>
+
+            <!-- Upload Area -->
+            <div id="uploadArea" class="upload-area">
+                <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                <div class="upload-title">Drop your image here or click to browse</div>
+                <div class="upload-subtitle">Supports JPG, PNG, WebP, GIF | Max 50MB</div>
+                <input type="file" id="fileInput" accept="image/*" style="display: none;">
+            </div>
+
+            <!-- Tool Container (hidden until upload) -->
+            <div id="toolContainer" style="display: none;">
+                <div class="resize-controls">
+                    <div class="resize-input">
+                        <label>Width (px)</label>
+                        <input type="number" id="widthInput" step="1">
+                    </div>
+                    <div class="resize-input">
+                        <label>Height (px)</label>
+                        <input type="number" id="heightInput" step="1">
+                    </div>
+                </div>
+                <div class="aspect-check">
+                    <input type="checkbox" id="aspectLock" checked> <label>Lock Aspect Ratio</label>
+                </div>
+
+                <!-- Preview container (shows original immediately) -->
+                <div id="previewContainer">
+                    <div class="preview-container">
+                        <div class="preview-card">
+                            <h4><i class="fas fa-image"></i> Original Image</h4>
+                            <img id="originalPreview" alt="Original">
+                            <div id="originalDim" class="dimension-badge"></div>
+                        </div>
+                        <div class="preview-card">
+                            <h4><i class="fas fa-expand-alt"></i> Resized Image</h4>
+                            <img id="resizedPreview" alt="Resized">
+                            <div id="resizedDim" class="dimension-badge"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <button id="resizeBtn" class="btn btn-primary"><i class="fas fa-expand-alt"></i> Resize Image</button>
+                    <button id="downloadBtn" class="btn btn-success" style="display: none;"><i class="fas fa-download"></i> Download Resized</button>
+                    <button id="resetBtn" class="btn btn-secondary"><i class="fas fa-trash-alt"></i> Clear All</button>
+                </div>
+            </div>
+
+            <div id="messageArea"></div>
+
+            <!-- How to use (simple explanation) -->
+            <div class="how-to">
+                <h3><i class="fas fa-info-circle"></i> How to use this tool</h3>
+                <ul>
+                    <li><strong>1. Upload an image</strong> – Drag & drop or click to browse.</li>
+                    <li><strong>2. Adjust dimensions</strong> – Enter new width or height. The aspect ratio lock keeps proportions.</li>
+                    <li><strong>3. Click "Resize Image"</strong> – The resized preview appears on the right.</li>
+                    <li><strong>4. Download</strong> – Save your resized image as PNG.</li>
+                </ul>
+                <p>✅ All processing happens in your browser – no upload, completely private.</p>
+            </div>
+
+            <div class="content-section">
+                <h2>About Resizing</h2>
+                <p>Resizing changes the pixel dimensions of your image. Use it to fit social media, websites, or email attachments.</p>
+                <ul>
+                    <li><strong>Lock Aspect Ratio</strong> – Maintains original proportions automatically.</li>
+                    <li><strong>High Quality</strong> – Uses canvas API for smooth resampling.</li>
+                    <li><strong>Supports all formats</strong> – JPG, PNG, WebP, GIF.</li>
+                </ul>
+            </div>
+
+            <div class="trust-badge">
+                <h3><i class="fas fa-lock"></i> 100% Private & Secure</h3>
+                <p>Your images never leave your device. All resizing happens locally.</p>
+            </div>
+
+            <div class="related-tools">
+                <h3>Related Tools</h3>
+                <div class="related-tools-list">
+                    <a href="compress-image.html" class="related-tool-link"><i class="fas fa-compress-alt"></i> Compress Image</a>
+                    <a href="crop-image.html" class="related-tool-link"><i class="fas fa-crop"></i> Crop Image</a>
+                    <a href="jpg-to-png.html" class="related-tool-link"><i class="fas fa-image"></i> JPG to PNG</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+<script>
+        // DOM elements
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const toolContainer = document.getElementById('toolContainer');
+        const originalPreview = document.getElementById('originalPreview');
+        const resizedPreview = document.getElementById('resizedPreview');
+        const originalDim = document.getElementById('originalDim');
+        const resizedDim = document.getElementById('resizedDim');
+        const widthInput = document.getElementById('widthInput');
+        const heightInput = document.getElementById('heightInput');
+        const aspectLock = document.getElementById('aspectLock');
+        const resizeBtn = document.getElementById('resizeBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const messageArea = document.getElementById('messageArea');
+
+        let originalFile = null;
+        let originalImage = new Image();
+        let resizedDataUrl = null;
+        let originalWidth = 0, originalHeight = 0;
+
+        function formatFileSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(2) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+        }
+
+        function showMessage(text, type = 'error') {
+            messageArea.innerHTML = `<div class="${type}-message">${text}</div>`;
+            setTimeout(() => messageArea.innerHTML = '', 4000);
+        }
+
+        // Upload triggers
+        uploadArea.onclick = () => fileInput.click();
+        fileInput.onchange = (e) => { if (e.target.files[0]) handleFile(e.target.files[0]); };
+        uploadArea.ondragover = (e) => { e.preventDefault(); uploadArea.classList.add('dragover'); };
+        uploadArea.ondragleave = () => uploadArea.classList.remove('dragover');
+        uploadArea.ondrop = (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+        };
+
+        // Aspect ratio helpers
+        function updateHeight() {
+            if (aspectLock.checked && originalWidth > 0) {
+                const ratio = originalHeight / originalWidth;
+                heightInput.value = Math.round(widthInput.value * ratio);
+            }
+        }
+        function updateWidth() {
+            if (aspectLock.checked && originalHeight > 0) {
+                const ratio = originalWidth / originalHeight;
+                widthInput.value = Math.round(heightInput.value * ratio);
+            }
+        }
+        widthInput.addEventListener('input', updateHeight);
+        heightInput.addEventListener('input', updateWidth);
+
+        // Handle uploaded file
+        function handleFile(file) {
+            if (!file.type.startsWith('image/')) {
+                showMessage('Please select an image file');
+                return;
+            }
+            if (file.size > 50 * 1024 * 1024) {
+                showMessage('File too large. Max 50MB');
+                return;
+            }
+            originalFile = file;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                originalImage.onload = () => {
+                    originalWidth = originalImage.width;
+                    originalHeight = originalImage.height;
+                    
+                    // Set input fields to original dimensions
+                    widthInput.value = originalWidth;
+                    heightInput.value = originalHeight;
+                    
+                    // Show original preview immediately
+                    originalPreview.src = e.target.result;
+                    originalDim.textContent = `${originalWidth} x ${originalHeight} px`;
+                    
+                    // Initially resized preview is same as original
+                    resizedPreview.src = e.target.result;
+                    resizedDim.textContent = `${originalWidth} x ${originalHeight} px`;
+                    resizedDataUrl = e.target.result;
+                    
+                    // Hide upload area, show tool container
+                    uploadArea.style.display = 'none';
+                    toolContainer.style.display = 'block';
+                    downloadBtn.style.display = 'none';
+                    
+                    showMessage(`Image loaded! Original size: ${originalWidth} x ${originalHeight} px. Adjust width/height and click Resize.`, 'success');
+                };
+                originalImage.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Resize logic
+        function resizeImage() {
+            let newWidth = parseInt(widthInput.value);
+            let newHeight = parseInt(heightInput.value);
+            if (isNaN(newWidth) || isNaN(newHeight) || newWidth <= 0 || newHeight <= 0) {
+                showMessage('Please enter valid width and height');
+                return;
+            }
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = newWidth;
+            canvas.height = newHeight;
+            ctx.drawImage(originalImage, 0, 0, newWidth, newHeight);
+            resizedDataUrl = canvas.toDataURL('image/png');
+            resizedPreview.src = resizedDataUrl;
+            resizedDim.textContent = `${newWidth} x ${newHeight} px`;
+            downloadBtn.style.display = 'inline-flex';
+            showMessage(`Resized to ${newWidth} x ${newHeight} px.`, 'success');
+        }
+
+        function downloadImage() {
+            if (!resizedDataUrl) return;
+            const link = document.createElement('a');
+            link.download = `resized_${Date.now()}.png`;
+            link.href = resizedDataUrl;
+            link.click();
+            showMessage('Image downloaded!', 'success');
+        }
+
+        function reset() {
+            originalFile = null;
+            originalImage = new Image();
+            resizedDataUrl = null;
+            toolContainer.style.display = 'none';
+            uploadArea.style.display = 'block';
+            fileInput.value = '';
+            downloadBtn.style.display = 'none';
+            messageArea.innerHTML = '';
+            widthInput.value = 800;
+            heightInput.value = 600;
+            aspectLock.checked = true;
+        }
+
+        resizeBtn.onclick = resizeImage;
+        downloadBtn.onclick = downloadImage;
+        resetBtn.onclick = reset;
+    </script>
+</body>
+</html>

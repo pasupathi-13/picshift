@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Base64 to Image Decoder - Convert String to Photo | PicShift</title>
+    <meta name="description" content="Decode Base64 strings back to images online. Enter your base64 text and download the decoded image instantly. 100% browser-based utility.">
+    <meta name="keywords" content="base64 to image converter, decode base64 to image online, base64 to jpg free, base64 decoder online">
+    <meta name="author" content="VaultKit Technologies">
+    <link rel="canonical" href="https://picshift.me/base64-to-image.html">
+    <!-- Open Graph (Facebook/WhatsApp/LinkedIn) -->
+    <meta property="og:title" content="Base64 to Image Decoder - Convert String to Photo | PicShift">
+    <meta property="og:description" content="Decode Base64 strings back to images online. Enter your base64 text and download the decoded image instantly. 100% browser-based utility.">
+    <meta property="og:url" content="https://picshift.me/base64-to-image.html">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://picshift.me/logo.png">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Base64 to Image Decoder - Convert String to Photo | PicShift">
+    <meta name="twitter:description" content="Decode Base64 strings back to images online. Enter your base64 text and download the decoded image instantly. 100% browser-based utility.">
+    <meta name="twitter:image" content="https://picshift.me/logo.png">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Base64 to Image Decoder",
+      "url": "https://picshift.me/base64-to-image.html",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires HTML5 canvas support",
+      "description": "Decode Base64 strings back to images online. Enter your base64 text and download the decoded image instantly. 100% browser-based utility.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    
+    
+    
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="global.js" defer></script>
+    <style>
+.page-title {
+ font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
+
+.page-subtitle {
+ color: #64748B; margin-bottom: 2rem; }
+
+.input-area {
+
+            margin: 1.5rem 0;
+        }
+
+.input-area label {
+
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: block;
+            color: #299ACE;
+        }
+
+textarea {
+
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #E2E8F0;
+            border-radius: 16px;
+            font-family: monospace;
+            font-size: 0.8rem;
+            resize: vertical;
+            background: #FAFCFF;
+        }
+
+textarea:focus {
+
+            outline: none;
+            border-color: #299ACE;
+        }
+
+.action-buttons {
+
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 0.5rem;
+            align-items: center;
+        }
+
+.action-btn {
+
+            background: #F1F5F9;
+            border: 1px solid #E2E8F0;
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: 0.2s;
+        }
+
+.action-btn:hover {
+
+            background: #E0F2FE;
+            border-color: #299ACE;
+        }
+
+.file-input-label {
+
+            background: #F1F5F9;
+            border: 1px solid #E2E8F0;
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            display: inline-block;
+        }
+
+.file-input-label:hover {
+
+            background: #E0F2FE;
+            border-color: #299ACE;
+        }
+
+input[type="file"] {
+
+            display: none;
+        }
+
+.preview-area {
+
+            margin: 1.5rem 0;
+            text-align: center;
+            display: none;
+        }
+
+.preview-area img {
+
+            max-width: 100%;
+            max-height: 350px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            background: white;
+            border: 1px solid #E2E8F0;
+        }
+
+.info-text {
+
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: #64748B;
+        }
+
+.btn-primary {
+ background: #299ACE; color: white; }
+
+.btn-primary:hover {
+ background: #1E7BA3; transform: translateY(-2px); }
+
+.how-to {
+
+            background: #F0F9FF;
+            border-radius: 20px;
+            padding: 1rem;
+            margin-top: 1.5rem;
+            border-left: 4px solid #299ACE;
+        }
+    </style>
+</head>
+<body>
+
+<main class="main-container">
+    <div class="tool-card">
+        <div class="tool-status">⚡ 100% Client-Side | No Upload</div>
+        <h1 class="page-title">Base64 to Image</h1>
+        <p class="page-subtitle">Convert Base64 strings back into viewable images. Paste or upload a .txt file.</p>
+
+        <div class="input-area">
+            <label>Base64 String (data:image/...;base64,...)</label>
+            <textarea id="base64Input" rows="5" placeholder='Example: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=='></textarea>
+            <div class="action-buttons">
+                <button id="exampleBtn" class="action-btn"><i class="fas fa-code"></i> Load Example</button>
+                <label class="file-input-label"><i class="fas fa-file-alt"></i> Upload TXT File
+                    <input type="file" id="txtFileInput" accept=".txt,text/plain">
+                </label>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button id="convertBtn" class="btn btn-primary"><i class="fas fa-sync-alt"></i> Convert to Image</button>
+            <button id="clearBtn" class="btn btn-secondary"><i class="fas fa-trash-alt"></i> Clear</button>
+        </div>
+
+        <div id="previewArea" class="preview-area">
+            <h4>Decoded Image</h4>
+            <img id="previewImage" alt="Decoded preview">
+            <div id="imageInfo" class="info-text"></div>
+            <button id="downloadBtn" class="btn btn-success" style="display: none; margin-top: 1rem;"><i class="fas fa-download"></i> Download Image</button>
+        </div>
+
+        <div id="messageArea"></div>
+
+        <div class="how-to">
+            <h3><i class="fas fa-info-circle"></i> How to use</h3>
+            <ul style="margin-left: 1.5rem;">
+                <li>1. Paste a Base64 string or upload a .txt file containing one.</li>
+                <li>2. Click "Convert to Image" to preview and decode.</li>
+                <li>3. Download the image as PNG.</li>
+            </ul>
+        </div>
+
+        <div class="trust-badge">
+            <h3><i class="fas fa-lock"></i> 100% Private & Secure</h3>
+            <p>All processing happens in your browser. No upload, no server.</p>
+        </div>
+
+        <div class="related-tools">
+            <h3>Related Tools</h3>
+            <div class="related-tools-list">
+                <a href="to-base64.html" class="related-tool-link"><i class="fas fa-code"></i> Image to Base64</a>
+                <a href="compress-image.html" class="related-tool-link"><i class="fas fa-compress-alt"></i> Compress</a>
+                <a href="jpg-to-png.html" class="related-tool-link"><i class="fas fa-image"></i> JPG to PNG</a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    const base64Input = document.getElementById('base64Input');
+    const convertBtn = document.getElementById('convertBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const exampleBtn = document.getElementById('exampleBtn');
+    const txtFileInput = document.getElementById('txtFileInput');
+    const previewArea = document.getElementById('previewArea');
+    const previewImage = document.getElementById('previewImage');
+    const imageInfo = document.getElementById('imageInfo');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const messageDiv = document.getElementById('messageArea');
+
+    let currentDataUrl = null;
+
+    function showMessage(msg, type) {
+        messageDiv.innerHTML = `<div class="${type}-message">${msg}</div>`;
+        setTimeout(() => messageDiv.innerHTML = '', 4000);
+    }
+
+    function cleanBase64(input) {
+        let str = input.trim();
+        if (str.startsWith('data:image')) return str;
+        // try to detect image type from header
+        if (str.startsWith('/9j/')) return 'data:image/jpeg;base64,' + str;
+        if (str.startsWith('iVBORw0KGgo')) return 'data:image/png;base64,' + str;
+        if (str.startsWith('R0lGOD')) return 'data:image/gif;base64,' + str;
+        if (str.startsWith('UklGR')) return 'data:image/webp;base64,' + str;
+        return 'data:image/png;base64,' + str;
+    }
+
+    function convert() {
+        let raw = base64Input.value.trim();
+        if (!raw) {
+            showMessage('Please paste a Base64 string or upload a .txt file', 'error');
+            return;
+        }
+        try {
+            const fullDataUrl = cleanBase64(raw);
+            const img = new Image();
+            img.onload = () => {
+                currentDataUrl = fullDataUrl;
+                previewImage.src = fullDataUrl;
+                const match = fullDataUrl.match(/data:image\/([^;]+)/);
+                const format = match ? match[1] : 'png';
+                imageInfo.innerHTML = `Dimensions: ${img.width} x ${img.height} px | Format: ${format.toUpperCase()}`;
+                previewArea.style.display = 'block';
+                downloadBtn.style.display = 'inline-flex';
+                showMessage('Image decoded successfully!', 'success');
+            };
+            img.onerror = () => {
+                showMessage('Invalid Base64 string. Please check the format.', 'error');
+                previewArea.style.display = 'none';
+                downloadBtn.style.display = 'none';
+                currentDataUrl = null;
+            };
+            img.src = fullDataUrl;
+        } catch (e) {
+            showMessage('Error: ' + e.message, 'error');
+        }
+    }
+
+    function downloadImage() {
+        if (!currentDataUrl) return;
+        const link = document.createElement('a');
+        link.download = `decoded_image_${Date.now()}.png`;
+        link.href = currentDataUrl;
+        link.click();
+        showMessage('Image downloaded!', 'success');
+    }
+
+    function clearAll() {
+        base64Input.value = '';
+        previewArea.style.display = 'none';
+        downloadBtn.style.display = 'none';
+        currentDataUrl = null;
+        messageDiv.innerHTML = '';
+    }
+
+    function loadExample() {
+        base64Input.value = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==';
+        showMessage('Example loaded. Click Convert to see the image.', 'success');
+    }
+
+    function handleTxtFile(file) {
+        if (!file) return;
+        if (file.type !== 'text/plain' && !file.name.endsWith('.txt')) {
+            showMessage('Please select a .txt file', 'error');
+            return;
+        }
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            base64Input.value = e.target.result;
+            showMessage('File loaded! Click Convert to decode.', 'success');
+        };
+        reader.onerror = () => {
+            showMessage('Error reading file.', 'error');
+        };
+        reader.readAsText(file);
+    }
+
+    txtFileInput.addEventListener('change', (e) => {
+        if (e.target.files.length) handleTxtFile(e.target.files[0]);
+        txtFileInput.value = ''; // allow re-upload of same file
+    });
+
+    convertBtn.onclick = convert;
+    clearBtn.onclick = clearAll;
+    exampleBtn.onclick = loadExample;
+    downloadBtn.onclick = downloadImage;
+</script>
+</body>
+</html>

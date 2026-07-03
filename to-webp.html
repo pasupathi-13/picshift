@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Convert Image to WebP Online - Optimize Web Images | PicShift</title>
+    <meta name="description" content="Convert JPG, PNG, and GIF images to WebP format for fast web loading. Reduce image weights while maintaining quality. 100% client-side converter.">
+    <meta name="keywords" content="convert image to webp, image to webp converter, png to webp converter, jpg to webp online">
+    <meta name="author" content="VaultKit Technologies">
+    <link rel="canonical" href="https://picshift.me/to-webp.html">
+    <!-- Open Graph (Facebook/WhatsApp/LinkedIn) -->
+    <meta property="og:title" content="Convert Image to WebP Online - Optimize Web Images | PicShift">
+    <meta property="og:description" content="Convert JPG, PNG, and GIF images to WebP format for fast web loading. Reduce image weights while maintaining quality. 100% client-side converter.">
+    <meta property="og:url" content="https://picshift.me/to-webp.html">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://picshift.me/logo.png">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Convert Image to WebP Online - Optimize Web Images | PicShift">
+    <meta name="twitter:description" content="Convert JPG, PNG, and GIF images to WebP format for fast web loading. Reduce image weights while maintaining quality. 100% client-side converter.">
+    <meta name="twitter:image" content="https://picshift.me/logo.png">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Image to WebP Converter",
+      "url": "https://picshift.me/to-webp.html",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires HTML5 canvas support",
+      "description": "Convert JPG, PNG, and GIF images to WebP format for fast web loading. Reduce image weights while maintaining quality. 100% client-side converter.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    
+    
+    
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="global.js" defer></script>
+    <style>
+.page-title {
+ font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
+
+.page-subtitle {
+ color: #64748B; margin-bottom: 2rem; }
+
+.converted-area {
+
+            text-align: center;
+            margin: 1.5rem 0;
+            display: none;
+        }
+
+.converted-area img {
+
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 12px;
+            background: white;
+            border: 1px solid #E2E8F0;
+        }
+
+.info-badge {
+
+            background: #F8FAFC;
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            display: inline-block;
+        }
+
+.how-to {
+
+            background: #F0F9FF;
+            border-radius: 20px;
+            padding: 1rem;
+            margin-top: 1.5rem;
+            border-left: 4px solid #299ACE;
+        }
+    </style>
+</head>
+<body>
+
+<main class="main-container">
+    <div class="tool-card">
+        <div class="tool-status">⚡ 100% Client-Side | No Upload</div>
+        <h1 class="page-title">Image to WebP Converter</h1>
+        <p class="page-subtitle">Convert JPG, PNG, GIF to WebP format. Smaller files, great for web.</p>
+
+        <div id="uploadArea" class="upload-area">
+            <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+            <div class="upload-title">Drop your image here or click to browse</div>
+            <div class="upload-subtitle">Supports JPG, PNG, GIF, WebP | Max 50MB</div>
+            <input type="file" id="fileInput" accept="image/jpeg,image/jpg,image/png,image/gif,image/webp" style="display: none;">
+        </div>
+
+        <div id="toolContainer" style="display: none;">
+            <div class="converted-area" id="convertedArea">
+                <h4><i class="fas fa-file-image"></i> Converted WebP</h4>
+                <img id="convertedPreview" alt="Converted WebP">
+                <div id="convertedInfo" class="info-badge"></div>
+            </div>
+            <div class="btn-group">
+                <button id="downloadBtn" class="btn btn-success" style="display: none;"><i class="fas fa-download"></i> Download WebP</button>
+                <button id="resetBtn" class="btn btn-secondary"><i class="fas fa-trash-alt"></i> Clear All</button>
+            </div>
+        </div>
+
+        <div id="messageArea"></div>
+
+        <div class="how-to">
+            <h3><i class="fas fa-info-circle"></i> How to use</h3>
+            <ul style="margin-left: 1.5rem;">
+                <li>1. Upload any image (JPG, PNG, GIF, WebP).</li>
+                <li>2. The WebP version is generated automatically.</li>
+                <li>3. Click "Download WebP" to save your image.</li>
+            </ul>
+        </div>
+
+        <div class="trust-badge">
+            <h3><i class="fas fa-lock"></i> 100% Private & Secure</h3>
+            <p>All processing happens in your browser. No upload, no server.</p>
+        </div>
+
+        <div class="related-tools">
+            <h3>Related Tools</h3>
+            <div class="related-tools-list">
+                <a href="jpg-to-png.html" class="related-tool-link"><i class="fas fa-file-image"></i> JPG to PNG</a>
+                <a href="png-to-jpg.html" class="related-tool-link"><i class="fas fa-file-image"></i> PNG to JPG</a>
+                <a href="webp-to-png.html" class="related-tool-link"><i class="fas fa-globe"></i> WebP to PNG</a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    const uploadArea = document.getElementById('uploadArea');
+    const fileInput = document.getElementById('fileInput');
+    const toolContainer = document.getElementById('toolContainer');
+    const convertedArea = document.getElementById('convertedArea');
+    const convertedPreview = document.getElementById('convertedPreview');
+    const convertedInfo = document.getElementById('convertedInfo');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const messageDiv = document.getElementById('messageArea');
+
+    let convertedDataUrl = null;
+
+    function showMessage(msg, type) {
+        messageDiv.innerHTML = `<div class="${type}-message">${msg}</div>`;
+        setTimeout(() => messageDiv.innerHTML = '', 3000);
+    }
+
+    function formatFileSize(bytes) {
+        if (bytes < 1024) return bytes + ' B';
+        if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(2) + ' KB';
+        return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+    }
+
+    uploadArea.onclick = () => fileInput.click();
+    fileInput.onchange = (e) => e.target.files[0] && handleFile(e.target.files[0]);
+    uploadArea.ondragover = (e) => e.preventDefault();
+    uploadArea.ondrop = (e) => {
+        e.preventDefault();
+        if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+    };
+
+    function handleFile(file) {
+        if (!file.type.match(/image\/(jpeg|jpg|png|gif|webp)/)) {
+            showMessage('Please select a valid image (JPG, PNG, GIF, WebP)', 'error');
+            return;
+        }
+        if (file.size > 50 * 1024 * 1024) {
+            showMessage('File too large (max 50MB)', 'error');
+            return;
+        }
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            uploadArea.style.display = 'none';
+            toolContainer.style.display = 'block';
+            const img = new Image();
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                canvas.width = img.width;
+                canvas.height = img.height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0);
+                convertedDataUrl = canvas.toDataURL('image/webp', 0.85);
+                convertedPreview.src = convertedDataUrl;
+                const webpSize = Math.round((convertedDataUrl.length * 3) / 4);
+                convertedInfo.innerHTML = `WebP • ${formatFileSize(webpSize)} • ${img.width}×${img.height}`;
+                convertedArea.style.display = 'block';
+                downloadBtn.style.display = 'inline-flex';
+                showMessage('Conversion complete! Download your WebP.', 'success');
+            };
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function downloadWebP() {
+        if (!convertedDataUrl) return;
+        const link = document.createElement('a');
+        link.download = `converted_${Date.now()}.webp`;
+        link.href = convertedDataUrl;
+        link.click();
+        showMessage('WebP downloaded!', 'success');
+    }
+
+    function reset() {
+        convertedDataUrl = null;
+        toolContainer.style.display = 'none';
+        uploadArea.style.display = 'block';
+        fileInput.value = '';
+        downloadBtn.style.display = 'none';
+        messageDiv.innerHTML = '';
+        convertedArea.style.display = 'none';
+        convertedPreview.src = '';
+    }
+
+    downloadBtn.onclick = downloadWebP;
+    resetBtn.onclick = reset;
+</script>
+</body>
+</html>

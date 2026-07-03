@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Convert Image to Grayscale - Black & White Photo Tool | PicShift</title>
+    <meta name="description" content="Convert color images to black and white online for free. Apply grayscale filters to JPG, PNG, and WebP photos instantly with local processing.">
+    <meta name="keywords" content="convert image to grayscale, black and white photo converter, grayscale image online, convert photo to black and white">
+    <meta name="author" content="VaultKit Technologies">
+    <link rel="canonical" href="https://picshift.me/grayscale.html">
+    <!-- Open Graph (Facebook/WhatsApp/LinkedIn) -->
+    <meta property="og:title" content="Convert Image to Grayscale - Black & White Photo Tool | PicShift">
+    <meta property="og:description" content="Convert color images to black and white online for free. Apply grayscale filters to JPG, PNG, and WebP photos instantly with local processing.">
+    <meta property="og:url" content="https://picshift.me/grayscale.html">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://picshift.me/logo.png">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Convert Image to Grayscale - Black & White Photo Tool | PicShift">
+    <meta name="twitter:description" content="Convert color images to black and white online for free. Apply grayscale filters to JPG, PNG, and WebP photos instantly with local processing.">
+    <meta name="twitter:image" content="https://picshift.me/logo.png">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Image Grayscale Tool",
+      "url": "https://picshift.me/grayscale.html",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires HTML5 canvas support",
+      "description": "Convert color images to black and white online for free. Apply grayscale filters to JPG, PNG, and WebP photos instantly with local processing.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    
+    
+    
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="global.js" defer></script>
+    <style>
+.page-title {
+ font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
+
+.page-subtitle {
+ color: #64748B; margin-bottom: 2rem; }
+
+.result-area {
+
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+
+.result-area img {
+
+            max-width: 100%;
+            max-height: 400px;
+            border-radius: 12px;
+            background: white;
+            border: 1px solid #E2E8F0;
+        }
+
+.info-badge {
+
+            background: #F8FAFC;
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            display: inline-block;
+        }
+
+.how-to {
+
+            background: #F0F9FF;
+            border-radius: 20px;
+            padding: 1rem;
+            margin-top: 1.5rem;
+            border-left: 4px solid #299ACE;
+        }
+    </style>
+</head>
+<body>
+
+<main class="main-container">
+    <div class="tool-card">
+        <div class="tool-status">⚡ 100% Client-Side | No Upload</div>
+        <h1 class="page-title">Grayscale Converter</h1>
+        <p class="page-subtitle">Convert color images to black and white instantly.</p>
+
+        <div id="uploadArea" class="upload-area">
+            <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+            <div class="upload-title">Drop your image here or click to browse</div>
+            <div class="upload-subtitle">Supports JPG, PNG, WebP, GIF | Max 50MB</div>
+            <input type="file" id="fileInput" accept="image/*" style="display: none;">
+        </div>
+
+        <div id="toolContainer" style="display: none;">
+            <div class="result-area">
+                <h4><i class="fas fa-adjust"></i> Grayscale Image</h4>
+                <img id="grayscalePreview" alt="Grayscale">
+                <div id="infoBadge" class="info-badge"></div>
+            </div>
+            <div class="btn-group">
+                <button id="downloadBtn" class="btn btn-success" style="display: none;"><i class="fas fa-download"></i> Download Grayscale Image</button>
+                <button id="resetBtn" class="btn btn-secondary"><i class="fas fa-trash-alt"></i> Clear All</button>
+            </div>
+        </div>
+
+        <div id="messageArea"></div>
+
+        <div class="how-to">
+            <h3><i class="fas fa-info-circle"></i> How to use</h3>
+            <ul style="margin-left: 1.5rem;">
+                <li>1. Upload an image (drag & drop or click).</li>
+                <li>2. The grayscale version is generated automatically.</li>
+                <li>3. Download your black & white image.</li>
+            </ul>
+        </div>
+
+        <div class="trust-badge">
+            <h3><i class="fas fa-lock"></i> 100% Private & Secure</h3>
+            <p>All processing happens in your browser. No upload, no server.</p>
+        </div>
+
+        <div class="related-tools">
+            <h3>Related Tools</h3>
+            <div class="related-tools-list">
+                <a href="brightness.html" class="related-tool-link"><i class="fas fa-sun"></i> Brightness</a>
+                <a href="blur.html" class="related-tool-link"><i class="fas fa-tint"></i> Blur</a>
+                <a href="image-to-hd.html" class="related-tool-link"><i class="fas fa-star"></i> Image to HD</a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    const uploadArea = document.getElementById('uploadArea');
+    const fileInput = document.getElementById('fileInput');
+    const toolContainer = document.getElementById('toolContainer');
+    const grayscalePreview = document.getElementById('grayscalePreview');
+    const infoBadge = document.getElementById('infoBadge');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const messageDiv = document.getElementById('messageArea');
+
+    let originalImage = new Image();
+    let grayscaleDataUrl = null;
+
+    function formatFileSize(bytes) {
+        if (bytes < 1024) return bytes + ' B';
+        if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(2) + ' KB';
+        return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+    }
+
+    function showMessage(msg, type) {
+        messageDiv.innerHTML = `<div class="${type}-message">${msg}</div>`;
+        setTimeout(() => messageDiv.innerHTML = '', 3000);
+    }
+
+    uploadArea.onclick = () => fileInput.click();
+    fileInput.onchange = (e) => e.target.files[0] && handleFile(e.target.files[0]);
+    uploadArea.ondragover = (e) => e.preventDefault();
+    uploadArea.ondrop = (e) => {
+        e.preventDefault();
+        if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+    };
+
+    function handleFile(file) {
+        if (!file.type.startsWith('image/')) {
+            showMessage('Please select an image file', 'error');
+            return;
+        }
+        if (file.size > 50 * 1024 * 1024) {
+            showMessage('File too large (max 50MB)', 'error');
+            return;
+        }
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            originalImage.onload = () => {
+                // Convert to grayscale
+                const canvas = document.createElement('canvas');
+                canvas.width = originalImage.width;
+                canvas.height = originalImage.height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(originalImage, 0, 0);
+                
+                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                const data = imageData.data;
+                for (let i = 0; i < data.length; i += 4) {
+                    const gray = 0.299 * data[i] + 0.587 * data[i+1] + 0.114 * data[i+2];
+                    data[i] = gray;
+                    data[i+1] = gray;
+                    data[i+2] = gray;
+                }
+                ctx.putImageData(imageData, 0, 0);
+                grayscaleDataUrl = canvas.toDataURL('image/png');
+                grayscalePreview.src = grayscaleDataUrl;
+                const fileSize = Math.round((grayscaleDataUrl.length * 3) / 4);
+                infoBadge.innerHTML = `${originalImage.width} × ${originalImage.height} px • ${formatFileSize(fileSize)}`;
+                uploadArea.style.display = 'none';
+                toolContainer.style.display = 'block';
+                downloadBtn.style.display = 'inline-flex';
+                showMessage('Grayscale conversion complete!', 'success');
+            };
+            originalImage.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function downloadImage() {
+        if (!grayscaleDataUrl) return;
+        const link = document.createElement('a');
+        link.download = `grayscale_${Date.now()}.png`;
+        link.href = grayscaleDataUrl;
+        link.click();
+        showMessage('Grayscale image downloaded!', 'success');
+    }
+
+    function reset() {
+        originalImage = new Image();
+        grayscaleDataUrl = null;
+        toolContainer.style.display = 'none';
+        uploadArea.style.display = 'block';
+        fileInput.value = '';
+        downloadBtn.style.display = 'none';
+        messageDiv.innerHTML = '';
+        grayscalePreview.src = '';
+    }
+
+    downloadBtn.onclick = downloadImage;
+    resetBtn.onclick = reset;
+</script>
+</body>
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Blur Image Online - Apply Soft Focus Filters | PicShift</title>
+    <meta name="description" content="Blur images or blur photo backgrounds online for free. Adjust blur intensity levels and download your blurred photo instantly. 100% secure.">
+    <meta name="keywords" content="blur image online, blur photo background free, apply blur filter to photo, adjust image blur online">
+    <meta name="author" content="VaultKit Technologies">
+    <link rel="canonical" href="https://picshift.me/blur.html">
+    <!-- Open Graph (Facebook/WhatsApp/LinkedIn) -->
+    <meta property="og:title" content="Blur Image Online - Apply Soft Focus Filters | PicShift">
+    <meta property="og:description" content="Blur images or blur photo backgrounds online for free. Adjust blur intensity levels and download your blurred photo instantly. 100% secure.">
+    <meta property="og:url" content="https://picshift.me/blur.html">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://picshift.me/logo.png">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Blur Image Online - Apply Soft Focus Filters | PicShift">
+    <meta name="twitter:description" content="Blur images or blur photo backgrounds online for free. Adjust blur intensity levels and download your blurred photo instantly. 100% secure.">
+    <meta name="twitter:image" content="https://picshift.me/logo.png">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Image Blurring Tool",
+      "url": "https://picshift.me/blur.html",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires HTML5 canvas support",
+      "description": "Blur images or blur photo backgrounds online for free. Adjust blur intensity levels and download your blurred photo instantly. 100% secure.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    
+    
+    
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="global.js" defer></script>
+    <style>
+.page-title {
+ font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
+
+.page-subtitle {
+ color: #64748B; margin-bottom: 2rem; }
+
+.result-area {
+
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+
+.result-area img {
+
+            max-width: 100%;
+            max-height: 400px;
+            border-radius: 12px;
+            background: white;
+            border: 1px solid #E2E8F0;
+        }
+
+.info-badge {
+
+            background: #F8FAFC;
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            display: inline-block;
+        }
+
+.blur-control {
+
+            background: #F8FAFC;
+            padding: 1rem;
+            border-radius: 16px;
+            margin: 1rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+.blur-control label {
+
+            font-weight: 600;
+            color: #299ACE;
+        }
+
+.blur-control input {
+
+            flex: 1;
+            min-width: 200px;
+        }
+
+.blur-control span {
+
+            font-weight: 600;
+            min-width: 60px;
+        }
+
+.how-to {
+
+            background: #F0F9FF;
+            border-radius: 20px;
+            padding: 1rem;
+            margin-top: 1.5rem;
+            border-left: 4px solid #299ACE;
+        }
+    </style>
+</head>
+<body>
+
+<main class="main-container">
+    <div class="tool-card">
+        <div class="tool-status">⚡ 100% Client-Side | No Upload</div>
+        <h1 class="page-title">Blur Effect</h1>
+        <p class="page-subtitle">Apply soft blur to your images. Adjustable intensity.</p>
+
+        <div id="uploadArea" class="upload-area">
+            <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+            <div class="upload-title">Drop your image here or click to browse</div>
+            <div class="upload-subtitle">Supports JPG, PNG, WebP, GIF | Max 50MB</div>
+            <input type="file" id="fileInput" accept="image/*" style="display: none;">
+        </div>
+
+        <div id="toolContainer" style="display: none;">
+            <!-- Blurred Image Preview -->
+            <div class="result-area">
+                <h4><i class="fas fa-tint"></i> Blurred Image</h4>
+                <img id="blurredPreview" alt="Blurred">
+                <div id="infoBadge" class="info-badge"></div>
+            </div>
+
+            <!-- Blur Slider (placed below the image) -->
+            <div class="blur-control">
+                <label>Blur Intensity:</label>
+                <input type="range" id="blurAmount" min="0" max="20" step="1" value="5">
+                <span id="blurValue">5px</span>
+            </div>
+
+            <div class="btn-group">
+                <button id="downloadBtn" class="btn btn-success" style="display: none;"><i class="fas fa-download"></i> Download Blurred Image</button>
+                <button id="resetBtn" class="btn btn-secondary"><i class="fas fa-trash-alt"></i> Clear All</button>
+            </div>
+        </div>
+
+        <div id="messageArea"></div>
+
+        <div class="how-to">
+            <h3><i class="fas fa-info-circle"></i> How to use</h3>
+            <ul style="margin-left: 1.5rem;">
+                <li>1. Upload an image.</li>
+                <li>2. Adjust the blur intensity slider – preview updates instantly.</li>
+                <li>3. Download your blurred image.</li>
+            </ul>
+        </div>
+
+        <div class="trust-badge">
+            <h3><i class="fas fa-lock"></i> 100% Private & Secure</h3>
+            <p>All processing happens in your browser. No upload, no server.</p>
+        </div>
+
+        <div class="related-tools">
+            <h3>Related Tools</h3>
+            <div class="related-tools-list">
+                <a href="grayscale.html" class="related-tool-link"><i class="fas fa-adjust"></i> Grayscale</a>
+                <a href="brightness.html" class="related-tool-link"><i class="fas fa-sun"></i> Brightness</a>
+                <a href="image-to-hd.html" class="related-tool-link"><i class="fas fa-star"></i> Image to HD</a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    const uploadArea = document.getElementById('uploadArea');
+    const fileInput = document.getElementById('fileInput');
+    const toolContainer = document.getElementById('toolContainer');
+    const blurredPreview = document.getElementById('blurredPreview');
+    const infoBadge = document.getElementById('infoBadge');
+    const blurAmount = document.getElementById('blurAmount');
+    const blurValue = document.getElementById('blurValue');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const messageDiv = document.getElementById('messageArea');
+
+    let originalImage = new Image();
+    let blurredDataUrl = null;
+    let canvas = null;
+    let ctx = null;
+
+    function formatFileSize(bytes) {
+        if (bytes < 1024) return bytes + ' B';
+        if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(2) + ' KB';
+        return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+    }
+
+    function showMessage(msg, type) {
+        messageDiv.innerHTML = `<div class="${type}-message">${msg}</div>`;
+        setTimeout(() => messageDiv.innerHTML = '', 3000);
+    }
+
+    uploadArea.onclick = () => fileInput.click();
+    fileInput.onchange = (e) => e.target.files[0] && handleFile(e.target.files[0]);
+    uploadArea.ondragover = (e) => e.preventDefault();
+    uploadArea.ondrop = (e) => {
+        e.preventDefault();
+        if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+    };
+
+    function handleFile(file) {
+        if (!file.type.startsWith('image/')) {
+            showMessage('Please select an image file', 'error');
+            return;
+        }
+        if (file.size > 50 * 1024 * 1024) {
+            showMessage('File too large (max 50MB)', 'error');
+            return;
+        }
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            originalImage.onload = () => {
+                // Create canvas for blur operations
+                canvas = document.createElement('canvas');
+                canvas.width = originalImage.width;
+                canvas.height = originalImage.height;
+                ctx = canvas.getContext('2d');
+                ctx.drawImage(originalImage, 0, 0);
+                uploadArea.style.display = 'none';
+                toolContainer.style.display = 'block';
+                applyBlur();
+                showMessage('Image loaded. Adjust blur intensity.', 'success');
+            };
+            originalImage.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function applyBlur() {
+        const blur = parseInt(blurAmount.value);
+        blurValue.textContent = blur + 'px';
+        
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.filter = `blur(${blur}px)`;
+        ctx.drawImage(originalImage, 0, 0, canvas.width, canvas.height);
+        ctx.filter = 'none';
+        
+        blurredDataUrl = canvas.toDataURL('image/png');
+        blurredPreview.src = blurredDataUrl;
+        const fileSize = Math.round((blurredDataUrl.length * 3) / 4);
+        infoBadge.innerHTML = `${originalImage.width} × ${originalImage.height} px • ${formatFileSize(fileSize)} • Blur: ${blur}px`;
+        downloadBtn.style.display = 'inline-flex';
+    }
+
+    blurAmount.addEventListener('input', applyBlur);
+
+    function downloadImage() {
+        if (!blurredDataUrl) return;
+        const link = document.createElement('a');
+        link.download = `blurred_${Date.now()}.png`;
+        link.href = blurredDataUrl;
+        link.click();
+        showMessage('Blurred image downloaded!', 'success');
+    }
+
+    function reset() {
+        originalImage = new Image();
+        blurredDataUrl = null;
+        toolContainer.style.display = 'none';
+        uploadArea.style.display = 'block';
+        fileInput.value = '';
+        downloadBtn.style.display = 'none';
+        messageDiv.innerHTML = '';
+        blurredPreview.src = '';
+        blurAmount.value = '5';
+        blurValue.textContent = '5px';
+    }
+
+    downloadBtn.onclick = downloadImage;
+    resetBtn.onclick = reset;
+</script>
+</body>
+</html>

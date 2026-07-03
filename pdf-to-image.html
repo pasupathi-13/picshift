@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Convert PDF to Image - Extract PDF Pages Online | PicShift</title>
+    <meta name="description" content="Convert PDF document pages into high-quality JPG or PNG images. Extract pages locally inside your browser with total privacy and zero file size limits.">
+    <meta name="keywords" content="pdf to image converter, convert pdf to jpg online, extract images from pdf free, transform pdf to png">
+    <meta name="author" content="VaultKit Technologies">
+    <link rel="canonical" href="https://picshift.me/pdf-to-image.html">
+    <!-- Open Graph (Facebook/WhatsApp/LinkedIn) -->
+    <meta property="og:title" content="Convert PDF to Image - Extract PDF Pages Online | PicShift">
+    <meta property="og:description" content="Convert PDF document pages into high-quality JPG or PNG images. Extract pages locally inside your browser with total privacy and zero file size limits.">
+    <meta property="og:url" content="https://picshift.me/pdf-to-image.html">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://picshift.me/logo.png">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Convert PDF to Image - Extract PDF Pages Online | PicShift">
+    <meta name="twitter:description" content="Convert PDF document pages into high-quality JPG or PNG images. Extract pages locally inside your browser with total privacy and zero file size limits.">
+    <meta name="twitter:image" content="https://picshift.me/logo.png">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "PDF to Image Converter",
+      "url": "https://picshift.me/pdf-to-image.html",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires HTML5 canvas support",
+      "description": "Convert PDF document pages into high-quality JPG or PNG images. Extract pages locally inside your browser with total privacy and zero file size limits.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    
+    
+    
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="global.js" defer></script>
+    <style>
+.page-title {
+ font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
+
+.page-subtitle {
+ color: #64748B; margin-bottom: 2rem; }
+
+.pages-container {
+
+            margin: 1rem 0;
+            max-height: 500px;
+            overflow-y: auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            padding: 0.5rem;
+        }
+
+.page-card {
+
+            background: #F8FAFC;
+            border-radius: 12px;
+            padding: 0.8rem;
+            text-align: center;
+            border: 1px solid #E2E8F0;
+            width: 150px;
+        }
+
+.page-card img {
+
+            width: 120px;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+        }
+
+.page-card .page-number {
+
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #299ACE;
+        }
+
+.page-card .download-single {
+
+            background: #10B981;
+            color: white;
+            border: none;
+            padding: 0.3rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+
+.page-card .download-single:hover {
+
+            background: #059669;
+        }
+
+.btn-primary {
+ background: #299ACE; color: white; }
+
+.btn-primary:hover {
+ background: #1E7BA3; transform: translateY(-2px); }
+
+.how-to {
+
+            background: #F0F9FF;
+            border-radius: 20px;
+            padding: 1rem;
+            margin-top: 1.5rem;
+            border-left: 4px solid #299ACE;
+        }
+
+@media (max-width: 768px) {
+.pages-container {
+ justify-content: center; }
+}
+    </style>
+</head>
+<body>
+
+<main class="main-container">
+    <div class="tool-card">
+        <div class="tool-status">⚡ 100% Client-Side | No Upload</div>
+        <h1 class="page-title">PDF to Image</h1>
+        <p class="page-subtitle">Extract all pages from a PDF and save as PNG images.</p>
+
+        <div id="uploadArea" class="upload-area">
+            <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+            <div class="upload-title">Drop your PDF here or click to browse</div>
+            <div class="upload-subtitle">Supports PDF | Max 50MB</div>
+            <input type="file" id="fileInput" accept="application/pdf" style="display: none;">
+        </div>
+
+        <div id="toolContainer" style="display: none;">
+            <div id="pagesContainer" class="pages-container"></div>
+            <div class="btn-group">
+                <button id="downloadZipBtn" class="btn btn-primary"><i class="fas fa-file-archive"></i> Download All as ZIP</button>
+                <button id="downloadAllSeparateBtn" class="btn btn-success"><i class="fas fa-download"></i> Download All as Separate PNGs</button>
+                <button id="resetBtn" class="btn btn-secondary"><i class="fas fa-trash-alt"></i> Clear All</button>
+            </div>
+        </div>
+
+        <div id="messageArea"></div>
+
+        <div class="how-to">
+            <h3><i class="fas fa-info-circle"></i> How to use</h3>
+            <ul style="margin-left: 1.5rem;">
+                <li>1. Upload a PDF file (drag & drop or click).</li>
+                <li>2. Each page is converted to PNG automatically.</li>
+                <li>3. Download individual pages, all as a ZIP, or all as separate PNGs.</li>
+            </ul>
+        </div>
+
+        <div class="trust-badge">
+            <h3><i class="fas fa-lock"></i> 100% Private & Secure</h3>
+            <p>All processing happens in your browser. No upload, no server.</p>
+        </div>
+
+        <div class="related-tools">
+            <h3>Related Tools</h3>
+            <div class="related-tools-list">
+                <a href="image-to-pdf.html" class="related-tool-link"><i class="fas fa-file-pdf"></i> Image to PDF</a>
+                <a href="compress-image.html" class="related-tool-link"><i class="fas fa-compress-alt"></i> Compress</a>
+                <a href="jpg-to-png.html" class="related-tool-link"><i class="fas fa-image"></i> JPG to PNG</a>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Add Watermark to Image Online - Protect Photos | PicShift</title>
+    <meta name="description" content="Add custom text watermarks to your images online. Drag, resize, rotate, and adjust transparency of text layers to protect your photos. 100% private.">
+    <meta name="keywords" content="add watermark to image, watermark photo online, protect images online free, text watermark online, logo watermark">
+    <meta name="author" content="VaultKit Technologies">
+    <link rel="canonical" href="https://picshift.me/watermark.html">
+    <!-- Open Graph (Facebook/WhatsApp/LinkedIn) -->
+    <meta property="og:title" content="Add Watermark to Image Online - Protect Photos | PicShift">
+    <meta property="og:description" content="Add custom text watermarks to your images online. Drag, resize, rotate, and adjust transparency of text layers to protect your photos. 100% private.">
+    <meta property="og:url" content="https://picshift.me/watermark.html">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://picshift.me/logo.png">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Add Watermark to Image Online - Protect Photos | PicShift">
+    <meta name="twitter:description" content="Add custom text watermarks to your images online. Drag, resize, rotate, and adjust transparency of text layers to protect your photos. 100% private.">
+    <meta name="twitter:image" content="https://picshift.me/logo.png">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Image Watermark Tool",
+      "url": "https://picshift.me/watermark.html",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires HTML5 canvas support",
+      "description": "Add custom text watermarks to your images online. Drag, resize, rotate, and adjust transparency of text layers to protect your photos. 100% private.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    
+    
+    
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="global.js" defer></script>
+    <style>
+.page-title {
+ font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
+
+.page-subtitle {
+ color: #64748B; margin-bottom: 2rem; font-size: 1rem; }
+
+.editor-container {
+
+            background: #F1F5F9;
+            border-radius: 20px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+canvas {
+
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            max-height: 280px;
+            width: auto;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            cursor: grab;
+        }
+
+canvas:active {
+ cursor: grabbing; }
+
+.toolbar {
+
+            background: #F8FAFC;
+            padding: 0.8rem;
+            border-radius: 16px;
+            margin: 1rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            align-items: center;
+            justify-content: center;
+        }
+
+.toolbar-btn {
+
+            background: white;
+            border: 1px solid #E2E8F0;
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+.toolbar-btn:hover {
+ border-color: #299ACE; color: #299ACE; }
+
+.toolbar-btn.active {
+ background: #299ACE; color: white; border-color: #299ACE; }
+
+.toolbar-select {
+
+            padding: 0.4rem;
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            background: white;
+            font-family: inherit;
+            font-size: 0.85rem;
+        }
+
+.separator {
+ width: 1px; height: 25px; background: #E2E8F0; margin: 0 0.3rem; }
+
+.controls-panel {
+
+            background: #F8FAFC;
+            padding: 1rem;
+            border-radius: 16px;
+            margin: 1rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: flex-end;
+        }
+
+.control-group {
+
+            flex: 1;
+            min-width: 100px;
+        }
+
+.control-group label {
+
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: #299ACE;
+        }
+
+.control-group input, .control-group select {
+
+            width: 100%;
+            padding: 0.5rem;
+            font-size: 0.85rem;
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            font-family: inherit;
+        }
+
+.color-swatch {
+
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            border: 1px solid #E2E8F0;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+
+.how-to {
+ background: #F0F9FF; border-radius: 20px; padding: 1rem; margin-top: 1.5rem; border-left: 4px solid #299ACE; }
+
+.how-to h3 {
+ font-size: 1rem; margin-bottom: 0.5rem; }
+
+.how-to ul {
+ margin-left: 1.5rem; font-size: 0.85rem; }
+
+@media (max-width: 768px) {
+.controls-panel {
+ flex-direction: column; align-items: stretch; }
+}
+    </style>
+</head>
+<body>
+
+<main class="main-container">
+    <div class="tool-card">
+        <div class="tool-status">⚡ 100% Client-Side | Drag, Resize, Rotate</div>
+        <h1 class="page-title">Watermark Adder</h1>
+        <p class="page-subtitle">Drag the box to move, corners to resize, top circle to rotate.</p>
+
+        <div id="uploadArea" class="upload-area">
+            <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+            <div class="upload-title">Drop your image here or click to browse</div>
+            <div class="upload-subtitle">JPG, PNG, WebP, GIF | Max 50MB</div>
+            <input type="file" id="fileInput" accept="image/*" style="display: none;">
+        </div>
+
+        <div id="toolContainer" style="display: none;">
+            <div class="editor-container">
+                <canvas id="watermarkCanvas"></canvas>
+            </div>
+
+            <div class="toolbar">
+                <select id="fontFamily" class="toolbar-select">
+                    <option value="Arial">Arial</option>
+                    <option value="Times New Roman">Times New Roman</option>
+                    <option value="Courier New">Courier New</option>
+                    <option value="Georgia">Georgia</option>
+                    <option value="Verdana">Verdana</option>
+                    <option value="Inter">Inter</option>
+                </select>
+                <div class="separator"></div>
+                <button id="boldBtn" class="toolbar-btn"><i class="fas fa-bold"></i> B</button>
+                <button id="italicBtn" class="toolbar-btn"><i class="fas fa-italic"></i> I</button>
+                <button id="underlineBtn" class="toolbar-btn"><i class="fas fa-underline"></i> U</button>
+                <div class="separator"></div>
+                <button id="alignLeftBtn" class="toolbar-btn"><i class="fas fa-align-left"></i></button>
+                <button id="alignCenterBtn" class="toolbar-btn"><i class="fas fa-align-center"></i></button>
+                <button id="alignRightBtn" class="toolbar-btn"><i class="fas fa-align-right"></i></button>
+                <div class="separator"></div>
+                <button id="shadowToggleBtn" class="toolbar-btn"><i class="fas fa-eye-dropper"></i> Shadow</button>
+                <input type="range" id="shadowIntensity" min="0" max="20" value="0" style="width:80px;">
+                <span id="shadowVal" style="font-size:0.8rem;">0px</span>
+                <div class="separator"></div>
+                <button id="strokeToggleBtn" class="toolbar-btn"><i class="fas fa-border-all"></i> Stroke</button>
+                <input type="color" id="strokeColor" value="#000000" style="width:40px;">
+            </div>
+
+            <div class="controls-panel">
+                <div class="control-group">
+                    <label>Watermark Text</label>
+                    <input type="text" id="watermarkText" value="© PicShift">
+                </div>
+                <div class="control-group">
+                    <label>Font Size</label>
+                    <input type="number" id="fontSize" value="32" min="10" max="100">
+                </div>
+                <div class="control-group">
+                    <label>Letter Spacing</label>
+                    <input type="number" id="letterSpacing" value="0" step="1" min="0" max="10">
+                </div>
+                <div class="control-group">
+                    <label>Transform</label>
+                    <select id="textTransform">
+                        <option value="none">None</option>
+                        <option value="uppercase">UPPERCASE</option>
+                        <option value="lowercase">lowercase</option>
+                        <option value="capitalize">Capitalize</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label>Color</label>
+                    <div style="display: flex; align-items: center;">
+                        <input type="color" id="textColor" value="#ffffff" style="width:45px;">
+                        <div id="colorSwatch" class="color-swatch" style="background:#ffffff;"></div>
+                        <span id="colorCode" style="font-size:0.75rem; margin-left:5px;">#ffffff</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label>Opacity</label>
+                    <input type="range" id="opacity" min="0" max="100" value="80">
+                    <span id="opacityVal">80%</span>
+                </div>
+            </div>
+
+            <div class="btn-group">
+                <button id="downloadBtn" class="btn btn-success" style="display: none;"><i class="fas fa-download"></i> Download Watermarked Image</button>
+                <button id="resetBtn" class="btn btn-secondary"><i class="fas fa-trash-alt"></i> Clear All</button>
+            </div>
+        </div>
+
+        <div id="messageArea"></div>
+
+        <div class="how-to">
+            <h3><i class="fas fa-info-circle"></i> How to use</h3>
+            <ul>
+                <li><strong>Move:</strong> Drag the blue box</li>
+                <li><strong>Resize:</strong> Drag white corner circles</li>
+                <li><strong>Rotate:</strong> Drag the top circle</li>
+                <li><strong>Styles:</strong> Use toolbar and controls for advanced text styling</li>
+            </ul>
+        </div>
+
+        <div class="trust-badge">
+            <h3><i class="fas fa-lock"></i> 100% Private & Secure</h3>
+            <p>All processing happens in your browser. No upload.</p>
+        </div>
+
+        <div class="related-tools">
+            <div class="related-tools-list">
+                <a href="compress-image.html" class="related-tool-link"><i class="fas fa-compress-alt"></i> Compress</a>
+                <a href="rotate.html" class="related-tool-link"><i class="fas fa-undo-alt"></i> Rotate</a>
+                <a href="brightness.html" class="related-tool-link"><i class="fas fa-sun"></i> Brightness</a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    (function(){
+        // DOM elements
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const toolContainer = document.getElementById('toolContainer');
+        const canvas = document.getElementById('watermarkCanvas');
+        const ctx = canvas.getContext('2d');
+        const watermarkText = document.getElementById('watermarkText');
+        const fontSizeInput = document.getElementById('fontSize');
+        const letterSpacingInput = document.getElementById('letterSpacing');
+        const textTransformSelect = document.getElementById('textTransform');
+        const textColor = document.getElementById('textColor');
+        const colorCode = document.getElementById('colorCode');
+        const colorSwatch = document.getElementById('colorSwatch');
+        const opacitySlider = document.getElementById('opacity');
+        const opacityVal = document.getElementById('opacityVal');
+        const fontFamily = document.getElementById('fontFamily');
+        const boldBtn = document.getElementById('boldBtn');
+        const italicBtn = document.getElementById('italicBtn');
+        const underlineBtn = document.getElementById('underlineBtn');
+        const alignLeftBtn = document.getElementById('alignLeftBtn');
+        const alignCenterBtn = document.getElementById('alignCenterBtn');
+        const alignRightBtn = document.getElementById('alignRightBtn');
+        const shadowToggleBtn = document.getElementById('shadowToggleBtn');
+        const shadowIntensity = document.getElementById('shadowIntensity');
+        const shadowVal = document.getElementById('shadowVal');
+        const strokeToggleBtn = document.getElementById('strokeToggleBtn');
+        const strokeColor = document.getElementById('strokeColor');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const messageDiv = document.getElementById('messageArea');
+
+        let originalImage = new Image();
+        let imgLoaded = false;
+        let imgWidth = 0, imgHeight = 0;
+        let scale = 1;
+        
+        let box = {
+            x: 100, y: 100,
+            width: 200, height: 60,
+            angle: 0
+        };
+        
+        let dragType = null;
+        let dragStart = { x: 0, y: 0 };
+        let startBox = { ...box };
+        
+        let isBold = false;
+        let isItalic = false;
+        let isUnderline = false;
+        let textAlign = 'center';
+        let shadowEnabled = false;
+        let strokeEnabled = false;
+        
+        const HANDLE_SIZE = 12;
+        const ROTATE_HANDLE_OFFSET = 30;
+        
+        function showMessage(msg, type) {
+            messageDiv.innerHTML = `<div class="${type}-message">${msg}</div>`;
+            setTimeout(() => messageDiv.innerHTML = '', 3000);
+        }
+        
+        function updateButtonStyles() {
+            boldBtn.classList.toggle('active', isBold);
+            italicBtn.classList.toggle('active', isItalic);
+            underlineBtn.classList.toggle('active', isUnderline);
+            alignLeftBtn.classList.toggle('active', textAlign === 'left');
+            alignCenterBtn.classList.toggle('active', textAlign === 'center');
+            alignRightBtn.classList.toggle('active', textAlign === 'right');
+            shadowToggleBtn.classList.toggle('active', shadowEnabled);
+            strokeToggleBtn.classList.toggle('active', strokeEnabled);
+        }
+        
+        function buildFontString() {
+            let style = '';
+            if (isItalic) style += 'italic ';
+            if (isBold) style += 'bold ';
+            let size = parseInt(fontSizeInput.value) || 32;
+            let family = fontFamily.value;
+            return `${style}${size}px '${family}', Arial, sans-serif`;
+        }
+        
+        function applyTextTransform(text) {
+            const transform = textTransformSelect.value;
+            if (transform === 'uppercase') return text.toUpperCase();
+            if (transform === 'lowercase') return text.toLowerCase();
+            if (transform === 'capitalize') return text.replace(/\b\w/g, c => c.toUpperCase());
+            return text;
+        }
+        
+        function getTextX(boxX, boxW, textWidth) {
+            switch(textAlign) {
+                case 'left': return boxX;
+                case 'center': return boxX + (boxW - textWidth) / 2;
+                case 'right': return boxX + boxW - textWidth;
+                default: return boxX + (boxW - textWidth) / 2;
+            }
+        }
+        
+        function drawScene() {
+            if (!imgLoaded) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(originalImage, 0, 0, canvas.width, canvas.height);
+            
+            ctx.save();
+            ctx.translate(box.x + box.width/2, box.y + box.height/2);
+            ctx.rotate(box.angle * Math.PI / 180);
+            ctx.translate(-(box.x + box.width/2), -(box.y + box.height/2));
+            
+            let text = watermarkText.value || '© PicShift';
+            text = applyTextTransform(text);
+            const fontSize = parseInt(fontSizeInput.value) || 32;
+            const letterSpacing = parseInt(letterSpacingInput.value) || 0;
+            ctx.font = buildFontString();
+            if (letterSpacing > 0) {
+                ctx.letterSpacing = letterSpacing + 'px';
+            } else {
+                ctx.letterSpacing = 'normal';
+            }
+            const textWidth = ctx.measureText(text).width;
+            const textX = getTextX(box.x, box.width, textWidth);
+            const textY = box.y + fontSize * 0.8;
+            
+            if (shadowEnabled) {
+                ctx.shadowColor = 'rgba(0,0,0,0.5)';
+                ctx.shadowBlur = parseInt(shadowIntensity.value);
+                ctx.shadowOffsetX = 2;
+                ctx.shadowOffsetY = 2;
+            } else {
+                ctx.shadowColor = 'transparent';
+            }
+            ctx.fillStyle = textColor.value;
+            ctx.globalAlpha = parseInt(opacitySlider.value) / 100;
+            if (strokeEnabled) {
+                ctx.strokeStyle = strokeColor.value;
+                ctx.lineWidth = 2;
+                ctx.strokeText(text, textX, textY);
+            }
+            ctx.fillText(text, textX, textY);
+            if (isUnderline) {
+                ctx.beginPath();
+                ctx.moveTo(textX, textY + 3);
+                ctx.lineTo(textX + textWidth, textY + 3);
+                ctx.strokeStyle = textColor.value;
+                ctx.lineWidth = Math.max(1, fontSize / 12);
+                ctx.stroke();
+            }
+            ctx.restore();
+            drawHandles();
+        }
+        
+        function drawHandles() {
+            ctx.save();
+            ctx.translate(box.x + box.width/2, box.y + box.height/2);
+            ctx.rotate(box.angle * Math.PI / 180);
+            ctx.translate(-(box.x + box.width/2), -(box.y + box.height/2));
+            
+            ctx.strokeStyle = '#299ACE';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(box.x, box.y, box.width, box.height);
+            
+            const corners = [
+                { x: box.x, y: box.y }, { x: box.x + box.width, y: box.y },
+                { x: box.x, y: box.y + box.height }, { x: box.x + box.width, y: box.y + box.height }
+            ];
+            corners.forEach(c => {
+                ctx.fillStyle = 'white';
+                ctx.beginPath();
+                ctx.arc(c.x, c.y, HANDLE_SIZE/2, 0, 2*Math.PI);
+                ctx.fill();
+                ctx.fillStyle = '#299ACE';
+                ctx.beginPath();
+                ctx.arc(c.x, c.y, HANDLE_SIZE/3, 0, 2*Math.PI);
+                ctx.fill();
+            });
+            
+            const rotX = box.x + box.width/2;
+            const rotY = box.y - ROTATE_HANDLE_OFFSET;
+            ctx.fillStyle = 'white';
+            ctx.beginPath();
+            ctx.arc(rotX, rotY, HANDLE_SIZE/2, 0, 2*Math.PI);
+            ctx.fill();
+            ctx.fillStyle = '#299ACE';
+            ctx.beginPath();
+            ctx.arc(rotX, rotY, HANDLE_SIZE/3, 0, 2*Math.PI);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.moveTo(rotX, rotY + HANDLE_SIZE/2);
+            ctx.lineTo(box.x + box.width/2, box.y);
+            ctx.lineTo(rotX, rotY + HANDLE_SIZE/2);
+            ctx.fill();
+            ctx.restore();
+        }
+        
+        function hitTest(mouseX, mouseY) {
+            const dx = mouseX - (box.x + box.width/2);
+            const dy = mouseY - (box.y + box.height/2);
+            const rad = -box.angle * Math.PI / 180;
+            const localX = dx * Math.cos(rad) - dy * Math.sin(rad) + (box.x + box.width/2);
+            const localY = dx * Math.sin(rad) + dy * Math.cos(rad) + (box.y + box.height/2);
+            
+            const corners = [
+                { x: box.x, y: box.y, type: 'tl' }, { x: box.x + box.width, y: box.y, type: 'tr' },
+                { x: box.x, y: box.y + box.height, type: 'bl' }, { x: box.x + box.width, y: box.y + box.height, type: 'br' }
+            ];
+            for (let c of corners) {
+                if (Math.hypot(localX - c.x, localY - c.y) < HANDLE_SIZE) return { type: 'resize', corner: c.type };
+            }
+            const rotX = box.x + box.width/2;
+            const rotY = box.y - ROTATE_HANDLE_OFFSET;
+            if (Math.hypot(localX - rotX, localY - rotY) < HANDLE_SIZE) return { type: 'rotate' };
+            if (localX >= box.x && localX <= box.x + box.width && localY >= box.y && localY <= box.y + box.height) return { type: 'move' };
+            return null;
+        }
+        
+        let isDragging = false;
+        let currentAction = null;
+        
+        function getMouseCoord(e) {
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            let mouseX = (e.clientX - rect.left) * scaleX;
+            let mouseY = (e.clientY - rect.top) * scaleY;
+            mouseX = Math.min(Math.max(0, mouseX), canvas.width);
+            mouseY = Math.min(Math.max(0, mouseY), canvas.height);
+            return { x: mouseX, y: mouseY };
+        }
+        
+        function onMouseDown(e) {
+            if (!imgLoaded) return;
+            const pos = getMouseCoord(e);
+            const hit = hitTest(pos.x, pos.y);
+            if (!hit) return;
+            isDragging = true;
+            currentAction = hit;
+            dragStart = { x: pos.x, y: pos.y };
+            startBox = { ...box };
+            canvas.style.cursor = 'grabbing';
+            e.preventDefault();
+        }
+        
+        function onMouseMove(e) {
+            if (!isDragging || !imgLoaded) return;
+            const pos = getMouseCoord(e);
+            const dx = pos.x - dragStart.x;
+            const dy = pos.y - dragStart.y;
+            
+            if (currentAction.type === 'move') {
+                box.x = startBox.x + dx;
+                box.y = startBox.y + dy;
+                box.x = Math.min(Math.max(box.x, -box.width + 10), canvas.width - 10);
+                box.y = Math.min(Math.max(box.y, -box.height + 10), canvas.height - 10);
+            } 
+            else if (currentAction.type === 'resize') {
+                let newW = startBox.width, newH = startBox.height, newX = startBox.x, newY = startBox.y;
+                switch(currentAction.corner) {
+                    case 'tl':
+                        newW = startBox.width - dx; newH = startBox.height - dy;
+                        newX = startBox.x + dx; newY = startBox.y + dy; break;
+                    case 'tr':
+                        newW = startBox.width + dx; newH = startBox.height - dy;
+                        newY = startBox.y + dy; break;
+                    case 'bl':
+                        newW = startBox.width - dx; newH = startBox.height + dy;
+                        newX = startBox.x + dx; break;
+                    case 'br':
+                        newW = startBox.width + dx; newH = startBox.height + dy; break;
+                }
+                if (newW < 40) newW = 40;
+                if (newH < 30) newH = 30;
+                box.width = newW; box.height = newH; box.x = newX; box.y = newY;
+                box.x = Math.min(Math.max(box.x, -box.width + 10), canvas.width - 10);
+                box.y = Math.min(Math.max(box.y, -box.height + 10), canvas.height - 10);
+            }
+            else if (currentAction.type === 'rotate') {
+                const centerX = startBox.x + startBox.width/2;
+                const centerY = startBox.y + startBox.height/2;
+                const startAngle = Math.atan2(dragStart.y - centerY, dragStart.x - centerX);
+                const currentAngle = Math.atan2(pos.y - centerY, pos.x - centerX);
+                box.angle = startBox.angle + (currentAngle - startAngle) * 180 / Math.PI;
+                box.angle = box.angle % 360;
+            }
+            drawScene();
+        }
+        
+        function onMouseUp() {
+            isDragging = false;
+            currentAction = null;
+            canvas.style.cursor = 'grab';
+        }
+        
+        canvas.addEventListener('mousedown', onMouseDown);
+        window.addEventListener('mousemove', onMouseMove);
+        window.addEventListener('mouseup', onMouseUp);
+        canvas.style.cursor = 'grab';
+        
+        function refresh() { if (imgLoaded) drawScene(); }
+        
+        watermarkText.addEventListener('input', refresh);
+        fontSizeInput.addEventListener('input', refresh);
+        letterSpacingInput.addEventListener('input', refresh);
+        textTransformSelect.addEventListener('change', refresh);
+        textColor.addEventListener('input', () => {
+            colorCode.textContent = textColor.value;
+            colorSwatch.style.backgroundColor = textColor.value;
+            refresh();
+        });
+        opacitySlider.addEventListener('input', () => {
+            opacityVal.textContent = opacitySlider.value + '%';
+            refresh();
+        });
+        fontFamily.addEventListener('change', refresh);
+        boldBtn.onclick = () => { isBold = !isBold; updateButtonStyles(); refresh(); };
+        italicBtn.onclick = () => { isItalic = !isItalic; updateButtonStyles(); refresh(); };
+        underlineBtn.onclick = () => { isUnderline = !isUnderline; updateButtonStyles(); refresh(); };
+        alignLeftBtn.onclick = () => { textAlign = 'left'; updateButtonStyles(); refresh(); };
+        alignCenterBtn.onclick = () => { textAlign = 'center'; updateButtonStyles(); refresh(); };
+        alignRightBtn.onclick = () => { textAlign = 'right'; updateButtonStyles(); refresh(); };
+        shadowToggleBtn.onclick = () => { shadowEnabled = !shadowEnabled; updateButtonStyles(); refresh(); };
+        shadowIntensity.addEventListener('input', () => {
+            shadowVal.textContent = shadowIntensity.value + 'px';
+            if (shadowEnabled) refresh();
+        });
+        strokeToggleBtn.onclick = () => { strokeEnabled = !strokeEnabled; updateButtonStyles(); refresh(); };
+        strokeColor.addEventListener('input', refresh);
+        
+        uploadArea.onclick = () => fileInput.click();
+        fileInput.onchange = (e) => e.target.files[0] && handleFile(e.target.files[0]);
+        uploadArea.ondragover = (e) => e.preventDefault();
+        uploadArea.ondrop = (e) => {
+            e.preventDefault();
+            if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+        };
+        
+        function handleFile(file) {
+            if (!file.type.startsWith('image/')) {
+                showMessage('Please select an image file', 'error');
+                return;
+            }
+            if (file.size > 50 * 1024 * 1024) {
+                showMessage('File too large (max 50MB)', 'error');
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                originalImage.onload = () => {
+                    imgWidth = originalImage.width;
+                    imgHeight = originalImage.height;
+                    const maxWidth = 500;
+                    const maxHeight = 280;
+                    let width = imgWidth;
+                    let height = imgHeight;
+                    if (width > maxWidth) {
+                        height = (maxWidth / width) * height;
+                        width = maxWidth;
+                    }
+                    if (height > maxHeight) {
+                        width = (maxHeight / height) * width;
+                        height = maxHeight;
+                    }
+                    canvas.width = width;
+                    canvas.height = height;
+                    scale = width / imgWidth;
+                    box.width = Math.min(180, canvas.width * 0.6);
+                    box.height = 50;
+                    box.x = (canvas.width - box.width) / 2;
+                    box.y = (canvas.height - box.height) / 2;
+                    box.angle = 0;
+                    imgLoaded = true;
+                    uploadArea.style.display = 'none';
+                    toolContainer.style.display = 'block';
+                    drawScene();
+                    downloadBtn.style.display = 'inline-flex';
+                    showMessage('Image loaded! Drag the box, corners, or top circle.', 'success');
+                };
+                originalImage.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+        
+        function downloadImage() {
+            if (!imgLoaded) return;
+            const finalCanvas = document.createElement('canvas');
+            finalCanvas.width = imgWidth;
+            finalCanvas.height = imgHeight;
+            const finalCtx = finalCanvas.getContext('2d');
+            finalCtx.drawImage(originalImage, 0, 0, imgWidth, imgHeight);
+            
+            finalCtx.save();
+            const scaleX = imgWidth / canvas.width;
+            const scaleY = imgHeight / canvas.height;
+            const scaledBox = {
+                x: box.x * scaleX, y: box.y * scaleY,
+                width: box.width * scaleX, height: box.height * scaleY,
+                angle: box.angle
+            };
+            finalCtx.translate(scaledBox.x + scaledBox.width/2, scaledBox.y + scaledBox.height/2);
+            finalCtx.rotate(scaledBox.angle * Math.PI / 180);
+            finalCtx.translate(-(scaledBox.x + scaledBox.width/2), -(scaledBox.y + scaledBox.height/2));
+            
+            let text = watermarkText.value || '© PicShift';
+            text = applyTextTransform(text);
+            const fontSize = parseInt(fontSizeInput.value) || 32;
+            const letterSpacing = parseInt(letterSpacingInput.value) || 0;
+            finalCtx.font = buildFontString().replace(/[0-9]+px/, (fontSize * scaleX) + 'px');
+            if (letterSpacing > 0) finalCtx.letterSpacing = (letterSpacing * scaleX) + 'px';
+            const textWidth = finalCtx.measureText(text).width;
+            const textX = getTextX(scaledBox.x, scaledBox.width, textWidth);
+            const textY = scaledBox.y + fontSize * scaleX * 0.8;
+            if (shadowEnabled) {
+                finalCtx.shadowColor = 'rgba(0,0,0,0.5)';
+                finalCtx.shadowBlur = parseInt(shadowIntensity.value) * scaleX;
+                finalCtx.shadowOffsetX = 2 * scaleX;
+                finalCtx.shadowOffsetY = 2 * scaleY;
+            }
+            finalCtx.fillStyle = textColor.value;
+            finalCtx.globalAlpha = parseInt(opacitySlider.value) / 100;
+            if (strokeEnabled) {
+                finalCtx.strokeStyle = strokeColor.value;
+                finalCtx.lineWidth = 2 * scaleX;
+                finalCtx.strokeText(text, textX, textY);
+            }
+            finalCtx.fillText(text, textX, textY);
+            if (isUnderline) {
+                finalCtx.beginPath();
+                finalCtx.moveTo(textX, textY + 3);
+                finalCtx.lineTo(textX + textWidth, textY + 3);
+                finalCtx.strokeStyle = textColor.value;
+                finalCtx.lineWidth = Math.max(1, fontSize * scaleX / 12);
+                finalCtx.stroke();
+            }
+            finalCtx.restore();
+            const dataUrl = finalCanvas.toDataURL('image/png');
+            const link = document.createElement('a');
+            link.download = `watermarked_${Date.now()}.png`;
+            link.href = dataUrl;
+            link.click();
+            showMessage('Watermarked image downloaded!', 'success');
+        }
+        
+        function reset() {
+            imgLoaded = false;
+            toolContainer.style.display = 'none';
+            uploadArea.style.display = 'block';
+            fileInput.value = '';
+            downloadBtn.style.display = 'none';
+            messageDiv.innerHTML = '';
+            canvas.width = 500;
+            canvas.height = 280;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            watermarkText.value = '© PicShift';
+            fontSizeInput.value = '32';
+            letterSpacingInput.value = '0';
+            textTransformSelect.value = 'none';
+            textColor.value = '#ffffff';
+            colorCode.textContent = '#ffffff';
+            colorSwatch.style.backgroundColor = '#ffffff';
+            opacitySlider.value = '80';
+            opacityVal.textContent = '80%';
+            fontFamily.value = 'Arial';
+            isBold = false; isItalic = false; isUnderline = false;
+            textAlign = 'center';
+            shadowEnabled = false;
+            shadowIntensity.value = '0';
+            shadowVal.textContent = '0px';
+            strokeEnabled = false;
+            updateButtonStyles();
+        }
+        
+        downloadBtn.onclick = downloadImage;
+        resetBtn.onclick = reset;
+    })();
+</script>
+</body>
+</html>

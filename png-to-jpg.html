@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Convert PNG to JPG Online - Highly Compressed | PicShift</title>
+    <meta name="description" content="Convert PNG images to JPG format for free. Reduce file sizes and download compressed JPGs instantly. Process files locally in your browser for absolute privacy.">
+    <meta name="keywords" content="convert png to jpg, png to jpg converter, change png to jpg online, convert png to jpeg free">
+    <meta name="author" content="VaultKit Technologies">
+    <link rel="canonical" href="https://picshift.me/png-to-jpg.html">
+    <!-- Open Graph (Facebook/WhatsApp/LinkedIn) -->
+    <meta property="og:title" content="Convert PNG to JPG Online - Highly Compressed | PicShift">
+    <meta property="og:description" content="Convert PNG images to JPG format for free. Reduce file sizes and download compressed JPGs instantly. Process files locally in your browser for absolute privacy.">
+    <meta property="og:url" content="https://picshift.me/png-to-jpg.html">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://picshift.me/logo.png">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Convert PNG to JPG Online - Highly Compressed | PicShift">
+    <meta name="twitter:description" content="Convert PNG images to JPG format for free. Reduce file sizes and download compressed JPGs instantly. Process files locally in your browser for absolute privacy.">
+    <meta name="twitter:image" content="https://picshift.me/logo.png">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "PNG to JPG Converter",
+      "url": "https://picshift.me/png-to-jpg.html",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires HTML5 canvas support",
+      "description": "Convert PNG images to JPG format for free. Reduce file sizes and download compressed JPGs instantly. Process files locally in your browser for absolute privacy.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    
+    
+    
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="global.js" defer></script>
+    <style>
+.page-title {
+ font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
+
+.page-subtitle {
+ color: #64748B; margin-bottom: 2rem; }
+
+.preview-container {
+
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            margin: 1.5rem 0;
+        }
+
+.preview-card {
+
+            flex: 1;
+            min-width: 250px;
+            background: #F8FAFC;
+            border-radius: 20px;
+            padding: 1.2rem;
+            text-align: center;
+        }
+
+.preview-card img {
+
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 12px;
+            margin: 0.8rem 0;
+            background: white;
+        }
+
+.format-badge {
+
+            background: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+.btn-primary {
+ background: #299ACE; color: white; }
+
+.btn-primary:hover {
+ background: #1E7BA3; transform: translateY(-2px); }
+
+.how-to {
+
+            background: #F0F9FF;
+            border-radius: 20px;
+            padding: 1rem;
+            margin-top: 1.5rem;
+            border-left: 4px solid #299ACE;
+        }
+
+@media (max-width: 768px) {
+.preview-container {
+ flex-direction: column; }
+}
+    </style>
+</head>
+<body>
+
+<main class="main-container">
+    <div class="tool-card">
+        <div class="tool-status">⚡ 100% Client-Side | No Upload</div>
+        <h1 class="page-title">PNG to JPG Converter</h1>
+        <p class="page-subtitle">Convert PNG images to JPG format. Smaller file size, but transparency becomes white background.</p>
+
+        <div id="uploadArea" class="upload-area">
+            <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+            <div class="upload-title">Drop your PNG image here or click to browse</div>
+            <div class="upload-subtitle">Supports PNG | Max 50MB</div>
+            <input type="file" id="fileInput" accept="image/png" style="display: none;">
+        </div>
+
+        <div id="toolContainer" style="display: none;">
+            <div class="preview-container">
+                <div class="preview-card">
+                    <h4><i class="fas fa-file-image"></i> Original (PNG)</h4>
+                    <img id="originalPreview" alt="Original">
+                    <div id="originalInfo" class="format-badge"></div>
+                </div>
+                <div class="preview-card">
+                    <h4><i class="fas fa-file-image"></i> Converted (JPG)</h4>
+                    <img id="convertedPreview" alt="Converted">
+                    <div id="convertedInfo" class="format-badge"></div>
+                </div>
+            </div>
+            <div class="btn-group">
+                <button id="downloadBtn" class="btn btn-success" style="display: none;"><i class="fas fa-download"></i> Download JPG</button>
+                <button id="resetBtn" class="btn btn-secondary"><i class="fas fa-trash-alt"></i> Clear All</button>
+            </div>
+        </div>
+
+        <div id="messageArea"></div>
+
+        <div class="how-to">
+            <h3><i class="fas fa-info-circle"></i> How to use</h3>
+            <ul style="margin-left: 1.5rem;">
+                <li>1. Upload a PNG image (drag & drop or click).</li>
+                <li>2. The JPG version is generated automatically (white background where transparent).</li>
+                <li>3. Click "Download JPG" to save your image.</li>
+            </ul>
+        </div>
+
+        <div class="trust-badge">
+            <h3><i class="fas fa-lock"></i> 100% Private & Secure</h3>
+            <p>All processing happens in your browser. No upload, no server.</p>
+        </div>
+
+        <div class="related-tools">
+            <h3>Related Tools</h3>
+            <div class="related-tools-list">
+                <a href="jpg-to-png.html" class="related-tool-link"><i class="fas fa-file-image"></i> JPG to PNG</a>
+                <a href="webp-to-png.html" class="related-tool-link"><i class="fas fa-globe"></i> WebP to PNG</a>
+                <a href="to-webp.html" class="related-tool-link"><i class="fas fa-exchange-alt"></i> Image to WebP</a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    const uploadArea = document.getElementById('uploadArea');
+    const fileInput = document.getElementById('fileInput');
+    const toolContainer = document.getElementById('toolContainer');
+    const originalPreview = document.getElementById('originalPreview');
+    const convertedPreview = document.getElementById('convertedPreview');
+    const originalInfo = document.getElementById('originalInfo');
+    const convertedInfo = document.getElementById('convertedInfo');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const messageDiv = document.getElementById('messageArea');
+
+    let convertedDataUrl = null;
+
+    function showMessage(msg, type) {
+        messageDiv.innerHTML = `<div class="${type}-message">${msg}</div>`;
+        setTimeout(() => messageDiv.innerHTML = '', 3000);
+    }
+
+    function formatFileSize(bytes) {
+        if (bytes < 1024) return bytes + ' B';
+        if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(2) + ' KB';
+        return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+    }
+
+    uploadArea.onclick = () => fileInput.click();
+    fileInput.onchange = (e) => e.target.files[0] && handleFile(e.target.files[0]);
+    uploadArea.ondragover = (e) => e.preventDefault();
+    uploadArea.ondrop = (e) => {
+        e.preventDefault();
+        if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+    };
+
+    function handleFile(file) {
+        if (file.type !== 'image/png') {
+            showMessage('Please select a PNG file', 'error');
+            return;
+        }
+        if (file.size > 50 * 1024 * 1024) {
+            showMessage('File too large (max 50MB)', 'error');
+            return;
+        }
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            originalPreview.src = e.target.result;
+            originalInfo.innerHTML = `PNG • ${formatFileSize(file.size)}`;
+            uploadArea.style.display = 'none';
+            toolContainer.style.display = 'block';
+            // Automatically convert to JPG
+            const img = new Image();
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                canvas.width = img.width;
+                canvas.height = img.height;
+                const ctx = canvas.getContext('2d');
+                // Fill white background (for transparency)
+                ctx.fillStyle = '#FFFFFF';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0);
+                convertedDataUrl = canvas.toDataURL('image/jpeg', 0.92);
+                convertedPreview.src = convertedDataUrl;
+                const jpgSize = Math.round((convertedDataUrl.length * 3) / 4);
+                convertedInfo.innerHTML = `JPG • ${formatFileSize(jpgSize)}`;
+                downloadBtn.style.display = 'inline-flex';
+                showMessage('Conversion complete! Download your JPG.', 'success');
+            };
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function downloadJPG() {
+        if (!convertedDataUrl) return;
+        const link = document.createElement('a');
+        link.download = `converted_${Date.now()}.jpg`;
+        link.href = convertedDataUrl;
+        link.click();
+        showMessage('JPG downloaded!', 'success');
+    }
+
+    function reset() {
+        convertedDataUrl = null;
+        toolContainer.style.display = 'none';
+        uploadArea.style.display = 'block';
+        fileInput.value = '';
+        downloadBtn.style.display = 'none';
+        messageDiv.innerHTML = '';
+        originalPreview.src = '';
+        convertedPreview.src = '';
+    }
+
+    downloadBtn.onclick = downloadJPG;
+    resetBtn.onclick = reset;
+</script>
+</body>
+</html>

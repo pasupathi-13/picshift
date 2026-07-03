@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Compress Image Online - Reduce File Size for Free | PicShift</title>
+    <meta name="description" content="Compress JPG, PNG, and WebP images online for free. Reduce file size up to 80% with live preview and no quality loss. 100% private - your files never leave your device.">
+    <meta name="keywords" content="free image compressor, compress image online, reduce image size online, png compressor, jpeg compressor, image optimizer">
+    <meta name="author" content="VaultKit Technologies">
+    <link rel="canonical" href="https://picshift.me/compress-image.html">
+    <!-- Open Graph (Facebook/WhatsApp/LinkedIn) -->
+    <meta property="og:title" content="Compress Image Online - Reduce File Size for Free | PicShift">
+    <meta property="og:description" content="Compress JPG, PNG, and WebP images online for free. Reduce file size up to 80% with live preview and no quality loss. 100% private - your files never leave your device.">
+    <meta property="og:url" content="https://picshift.me/compress-image.html">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://picshift.me/logo.png">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Compress Image Online - Reduce File Size for Free | PicShift">
+    <meta name="twitter:description" content="Compress JPG, PNG, and WebP images online for free. Reduce file size up to 80% with live preview and no quality loss. 100% private - your files never leave your device.">
+    <meta name="twitter:image" content="https://picshift.me/logo.png">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Image Compressor Tool",
+      "url": "https://picshift.me/compress-image.html",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires HTML5 canvas support",
+      "description": "Compress JPG, PNG, and WebP images online for free. Reduce file size up to 80% with live preview and no quality loss. 100% private - your files never leave your device.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    
+    
+    
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="global.js" defer></script>
+    <style>
+.page-title {
+
+ font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
+
+.page-subtitle {
+
+ color: #64748B; margin-bottom: 2rem; }
+
+.preview-area {
+
+
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+
+.preview-area img {
+
+
+            max-width: 100%;
+            max-height: 400px;
+            border-radius: 12px;
+            background: white;
+            border: 1px solid #E2E8F0;
+            display: block;
+            margin: 0 auto;
+        }
+
+.size-info {
+
+
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+
+.size-card {
+
+
+            background: #F8FAFC;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+.size-card span {
+
+
+            font-weight: 700;
+            color: #299ACE;
+        }
+
+.quality-container {
+
+
+            background: #F8FAFC;
+            padding: 1.2rem;
+            border-radius: 16px;
+            margin: 1.5rem 0;
+        }
+
+.quality-label {
+
+
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+.quality-value {
+
+ color: #299ACE; font-weight: 700; }
+
+input[type="range"] {
+
+
+            width: 100%;
+            height: 6px;
+            -webkit-appearance: none;
+            background: #E2E8F0;
+            border-radius: 10px;
+            touch-action: pan-y;  
+        }
+
+input[type="range"]::-webkit-slider-thumb {
+
+
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            background: #299ACE;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+.content-section {
+
+ margin: 2rem 0; padding-top: 1rem; border-top: 1px solid #E2E8F0; }
+
+@media (max-width: 768px) {
+.page-title {
+
+ font-size: 1.5rem; }
+
+.size-card {
+
+ white-space: normal; text-align: center; }
+
+.size-info {
+
+ gap: 0.8rem; }
+}
+    </style>
+</head>
+<body>
+
+<main class="main-container">
+    <div class="tool-card">
+        <div class="tool-status">⚡ 100% Client-Side | No Upload</div>
+        <h1 class="page-title">Compress Image</h1>
+        <p class="page-subtitle">Reduce file size while maintaining quality. Adjust slider – compressed preview updates live.</p>
+
+        <div id="uploadArea" class="upload-area">
+            <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+            <div class="upload-title">Drop your image here or click to browse</div>
+            <div class="upload-subtitle">Supports JPG, PNG, WebP, GIF | Max 50MB</div>
+            <input type="file" id="fileInput" accept="image/*" style="display: none;">
+        </div>
+
+        <div id="toolContainer" style="display: none;">
+            <!-- Compressed Image -->
+            <div class="preview-area">
+                <h4><i class="fas fa-compress-alt"></i> Compressed Image</h4>
+                <img id="compressedPreview" alt="Compressed">
+            </div>
+
+            <!-- Size info row -->
+            <div class="size-info">
+                <div class="size-card">📁 Original Size: <span id="originalSize">—</span></div>
+                <div class="size-card">🗜️ Compressed Size: <span id="compressedSize">—</span></div>
+                <div class="size-card">💾 Saved: <span id="savedInfo">—</span></div>
+            </div>
+
+            <!-- Quality Slider (now below the image) -->
+            <div class="quality-container">
+                <div class="quality-label">
+                    <span><i class="fas fa-sliders-h"></i> Compression Quality</span>
+                    <span class="quality-value" id="qualityValue">80%</span>
+                </div>
+                <input type="range" id="qualitySlider" min="10" max="100" value="80">
+                <div class="slider-labels">
+                    <span>Higher Compression (Smaller)</span>
+                    <span>Better Quality (Larger)</span>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="btn-group">
+                <button id="downloadBtn" class="btn btn-success" style="display: none;"><i class="fas fa-download"></i> Download Compressed</button>
+                <button id="resetBtn" class="btn btn-secondary"><i class="fas fa-trash-alt"></i> Clear All</button>
+            </div>
+        </div>
+
+        <div id="messageArea"></div>
+
+        <div class="content-section">
+            <h2><i class="fas fa-info-circle"></i> How It Works</h2>
+            <p>All processing happens in your browser – no upload, completely private. Adjust the quality to see the file size change instantly.</p>
+        </div>
+
+        <div class="trust-badge">
+            <h3><i class="fas fa-lock"></i> 100% Private & Secure</h3>
+            <p>Your images never leave your device.</p>
+        </div>
+
+        <div class="related-tools">
+            <h3>Related Tools</h3>
+            <div class="related-tools-list">
+                <a href="resize-image.html" class="related-tool-link"><i class="fas fa-expand-alt"></i> Resize</a>
+                <a href="jpg-to-png.html" class="related-tool-link"><i class="fas fa-image"></i> JPG to PNG</a>
+                <a href="webp-to-png.html" class="related-tool-link"><i class="fas fa-globe"></i> WebP to PNG</a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    const uploadArea = document.getElementById('uploadArea');
+    const fileInput = document.getElementById('fileInput');
+    const toolContainer = document.getElementById('toolContainer');
+    const compressedPreview = document.getElementById('compressedPreview');
+    const originalSizeSpan = document.getElementById('originalSize');
+    const compressedSizeSpan = document.getElementById('compressedSize');
+    const savedInfoSpan = document.getElementById('savedInfo');
+    const qualitySlider = document.getElementById('qualitySlider');
+    const qualityValue = document.getElementById('qualityValue');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const messageDiv = document.getElementById('messageArea');
+
+    let originalImage = new Image();
+    let originalFile = null;
+    let compressedDataUrl = null;
+
+    function formatFileSize(bytes) {
+        if (bytes < 1024) return bytes + ' B';
+        if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(2) + ' KB';
+        return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+    }
+
+    function showMessage(msg, type) {
+        messageDiv.innerHTML = `<div class="${type}-message">${msg}</div>`;
+        setTimeout(() => messageDiv.innerHTML = '', 4000);
+    }
+
+    uploadArea.onclick = () => fileInput.click();
+    fileInput.onchange = (e) => e.target.files[0] && handleFile(e.target.files[0]);
+    uploadArea.ondragover = (e) => e.preventDefault();
+    uploadArea.ondrop = (e) => {
+        e.preventDefault();
+        if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+    };
+
+    qualitySlider.oninput = () => {
+        qualityValue.textContent = qualitySlider.value + '%';
+        if (originalFile) compressLive();
+    };
+
+    function compressLive() {
+        const quality = qualitySlider.value / 100;
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = originalImage.width;
+        canvas.height = originalImage.height;
+        ctx.drawImage(originalImage, 0, 0);
+        let outputFormat = 'image/jpeg';
+        if (originalFile.type === 'image/png') outputFormat = 'image/jpeg';
+        else if (originalFile.type === 'image/webp') outputFormat = 'image/webp';
+        compressedDataUrl = canvas.toDataURL(outputFormat, quality);
+        compressedPreview.src = compressedDataUrl;
+        const compressedBytes = Math.round((compressedDataUrl.length * 3) / 4);
+        const originalBytes = originalFile.size;
+        const savedPercent = ((originalBytes - compressedBytes) / originalBytes * 100).toFixed(1);
+        const savedKB = ((originalBytes - compressedBytes) / 1024).toFixed(2);
+        compressedSizeSpan.textContent = formatFileSize(compressedBytes);
+        savedInfoSpan.textContent = `${savedPercent}% (${savedKB} KB)`;
+        downloadBtn.style.display = 'inline-flex';
+    }
+
+    function handleFile(file) {
+        if (!file.type.startsWith('image/')) {
+            showMessage('Please select an image file', 'error');
+            return;
+        }
+        if (file.size > 50 * 1024 * 1024) {
+            showMessage('File too large (max 50MB)', 'error');
+            return;
+        }
+        originalFile = file;
+        originalSizeSpan.textContent = formatFileSize(file.size);
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            originalImage.onload = () => {
+                uploadArea.style.display = 'none';
+                toolContainer.style.display = 'block';
+                compressLive();
+                showMessage('Image loaded. Adjust quality – compressed size updates live.', 'success');
+            };
+            originalImage.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function downloadImage() {
+        if (!compressedDataUrl) return;
+        const link = document.createElement('a');
+        link.download = `compressed_${Date.now()}.jpg`;
+        link.href = compressedDataUrl;
+        link.click();
+        showMessage('Downloaded!', 'success');
+    }
+
+    function reset() {
+        originalFile = null;
+        originalImage = new Image();
+        compressedDataUrl = null;
+        toolContainer.style.display = 'none';
+        uploadArea.style.display = 'block';
+        fileInput.value = '';
+        downloadBtn.style.display = 'none';
+        messageDiv.innerHTML = '';
+        qualitySlider.value = '80';
+        qualityValue.textContent = '80%';
+        originalSizeSpan.textContent = '—';
+        compressedSizeSpan.textContent = '—';
+        savedInfoSpan.textContent = '—';
+    }
+
+    downloadBtn.onclick = downloadImage;
+    resetBtn.onclick = reset;
+</script>
+</body>
+</html>

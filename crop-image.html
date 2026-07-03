@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Crop Image Online - Trim & Cut Photos for Free | PicShift</title>
+    <meta name="description" content="Crop JPG, PNG, and WebP images online. Trim borders, focus on subjects, or crop to standard aspect ratios instantly in your browser. Zero uploads required.">
+    <meta name="keywords" content="crop image online, crop photo free, image cropper tool, trim photo online, circular crop online">
+    <meta name="author" content="VaultKit Technologies">
+    <link rel="canonical" href="https://picshift.me/crop-image.html">
+    <!-- Open Graph (Facebook/WhatsApp/LinkedIn) -->
+    <meta property="og:title" content="Crop Image Online - Trim & Cut Photos for Free | PicShift">
+    <meta property="og:description" content="Crop JPG, PNG, and WebP images online. Trim borders, focus on subjects, or crop to standard aspect ratios instantly in your browser. Zero uploads required.">
+    <meta property="og:url" content="https://picshift.me/crop-image.html">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://picshift.me/logo.png">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Crop Image Online - Trim & Cut Photos for Free | PicShift">
+    <meta name="twitter:description" content="Crop JPG, PNG, and WebP images online. Trim borders, focus on subjects, or crop to standard aspect ratios instantly in your browser. Zero uploads required.">
+    <meta name="twitter:image" content="https://picshift.me/logo.png">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Image Cropper Tool",
+      "url": "https://picshift.me/crop-image.html",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires HTML5 canvas support",
+      "description": "Crop JPG, PNG, and WebP images online. Trim borders, focus on subjects, or crop to standard aspect ratios instantly in your browser. Zero uploads required.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    
+    
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="global.js" defer></script>
+    <style>
+.page-title {
+ font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
+
+.page-subtitle {
+ color: #64748B; margin-bottom: 2rem; }
+
+.crop-layout {
+
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 1rem 0;
+        }
+
+.canvas-box {
+
+            flex: 1;
+            text-align: center;
+        }
+
+.canvas-box canvas {
+
+            max-width: 100%;
+            border: 2px solid #E2E8F0;
+            border-radius: 12px;
+            cursor: grab;
+            background: #F1F5F9;
+        }
+
+.canvas-box canvas:active {
+ cursor: grabbing; }
+
+.preview-box {
+
+            flex: 1;
+            text-align: center;
+        }
+
+.preview-box img {
+
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 12px;
+            border: 2px solid #E2E8F0;
+            background: white;
+        }
+
+.crop-controls {
+
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+
+.crop-controls label {
+
+            background: #F8FAFC;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+.crop-controls input {
+
+            width: 65px;
+            padding: 0.3rem;
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+.how-to {
+
+            background: #F0F9FF;
+            border-radius: 20px;
+            padding: 1rem;
+            margin-top: 1.5rem;
+            border-left: 4px solid #299ACE;
+        }
+
+@media (max-width: 768px) {
+.page-title {
+ font-size: 1.5rem; }
+
+.crop-layout {
+ flex-direction: column; }
+}
+    </style>
+</head>
+<body>
+
+<main class="main-container">
+    <div class="tool-card">
+        <div class="tool-status">⚡ 100% Client-Side | No Upload</div>
+        <h1 class="page-title">Crop Image</h1>
+        <p class="page-subtitle">Drag the box to move, corners to resize, top handle to rotate.</p>
+
+        <div id="uploadArea" class="upload-area">
+            <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+            <div class="upload-title">Drop your image here or click to browse</div>
+            <div class="upload-subtitle">Supports JPG, PNG, WebP, GIF | Max 50MB</div>
+            <input type="file" id="fileInput" accept="image/*" style="display: none;">
+        </div>
+
+        <div id="toolContainer" style="display: none;">
+            <div class="crop-layout">
+                <div class="canvas-box">
+                    <h4><i class="fas fa-crop"></i> Adjust Crop Area</h4>
+                    <canvas id="cropCanvas" width="600" height="400"></canvas>
+                    <div class="crop-controls">
+                        <label>X: <input type="number" id="cropX" step="1"></label>
+                        <label>Y: <input type="number" id="cropY" step="1"></label>
+                        <label>W: <input type="number" id="cropW" step="1"></label>
+                        <label>H: <input type="number" id="cropH" step="1"></label>
+                        <label>Angle: <input type="number" id="cropAngle" step="1" value="0"></label>
+                    </div>
+                </div>
+                <div class="preview-box">
+                    <h4><i class="fas fa-image"></i> Cropped Preview</h4>
+                    <img id="croppedPreview" alt="Cropped preview">
+                </div>
+            </div>
+            <div class="btn-group">
+                <button id="downloadBtn" class="btn btn-success" style="display: none;"><i class="fas fa-download"></i> Download Cropped</button>
+                <button id="resetBtn" class="btn btn-secondary"><i class="fas fa-trash-alt"></i> Clear All</button>
+            </div>
+        </div>
+
+        <div id="messageArea"></div>
+
+        <div class="how-to">
+            <h3><i class="fas fa-info-circle"></i> How to use</h3>
+            <ul style="margin-left: 1.5rem;">
+                <li>1. Upload an image.</li>
+                <li>2. <strong>Drag the sky-blue box</strong> to move crop area.</li>
+                <li>3. <strong>Drag white corner circles</strong> to resize.</li>
+                <li>4. <strong>Drag the circular handle above the box</strong> to rotate.</li>
+                <li>5. Download your cropped image.</li>
+            </ul>
+        </div>
+
+        <div class="trust-badge">
+            <h3><i class="fas fa-lock"></i> 100% Private & Secure</h3>
+            <p>All processing happens in your browser. No upload, no server.</p>
+        </div>
+
+        <div class="related-tools">
+            <h3>Related Tools</h3>
+            <div class="related-tools-list">
+                <a href="compress-image.html" class="related-tool-link"><i class="fas fa-compress-alt"></i> Compress</a>
+                <a href="resize-image.html" class="related-tool-link"><i class="fas fa-expand-alt"></i> Resize</a>
+                <a href="rotate.html" class="related-tool-link"><i class="fas fa-undo-alt"></i> Rotate</a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    (function() {
+        // DOM elements
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const toolContainer = document.getElementById('toolContainer');
+        const canvas = document.getElementById('cropCanvas');
+        const ctx = canvas.getContext('2d');
+        const previewImg = document.getElementById('croppedPreview');
+        const cropX = document.getElementById('cropX');
+        const cropY = document.getElementById('cropY');
+        const cropW = document.getElementById('cropW');
+        const cropH = document.getElementById('cropH');
+        const cropAngle = document.getElementById('cropAngle');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const messageDiv = document.getElementById('messageArea');
+
+        let originalImage = new Image();
+        let imgLoaded = false;
+        let canvasImgWidth = 0, canvasImgHeight = 0;
+        let crop = {
+            cx: 100, cy: 100,
+            width: 150, height: 150,
+            angle: 0
+        };
+        
+        let dragType = null;
+        let dragStart = { x: 0, y: 0 };
+        let startCrop = { ...crop };
+        const HANDLE_SIZE = 12;
+        const ROTATE_HANDLE_OFFSET = 60; // large enough to be outside
+
+        function showMessage(msg, type) {
+            messageDiv.innerHTML = `<div class="${type}-message">${msg}</div>`;
+            setTimeout(() => messageDiv.innerHTML = '', 3000);
+        }
+
+        // Get four corners of the rotated rectangle (canvas coordinates)
+        function getCorners() {
+            const halfW = crop.width / 2;
+            const halfH = crop.height / 2;
+            const rad = crop.angle * Math.PI / 180;
+            const cos = Math.cos(rad);
+            const sin = Math.sin(rad);
+            const cx = crop.cx;
+            const cy = crop.cy;
+            // corners in local coordinates: (-w/2,-h/2), (w/2,-h/2), (w/2,h/2), (-w/2,h/2)
+            const local = [
+                { x: -halfW, y: -halfH },
+                { x:  halfW, y: -halfH },
+                { x:  halfW, y:  halfH },
+                { x: -halfW, y:  halfH }
+            ];
+            return local.map(p => ({
+                x: cx + p.x * cos - p.y * sin,
+                y: cy + p.x * sin + p.y * cos
+            }));
+        }
+
+        function drawCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(originalImage, 0, 0, canvasImgWidth, canvasImgHeight);
+            const corners = getCorners();
+            // Draw sky-blue thick border
+            ctx.beginPath();
+            ctx.moveTo(corners[0].x, corners[0].y);
+            ctx.lineTo(corners[1].x, corners[1].y);
+            ctx.lineTo(corners[2].x, corners[2].y);
+            ctx.lineTo(corners[3].x, corners[3].y);
+            ctx.closePath();
+            ctx.strokeStyle = '#299ACE';
+            ctx.lineWidth = 4;
+            ctx.stroke();
+            
+            // Corner handles
+            corners.forEach(c => {
+                ctx.fillStyle = 'white';
+                ctx.shadowBlur = 2;
+                ctx.beginPath();
+                ctx.arc(c.x, c.y, HANDLE_SIZE/2, 0, 2*Math.PI);
+                ctx.fill();
+                ctx.fillStyle = '#299ACE';
+                ctx.beginPath();
+                ctx.arc(c.x, c.y, HANDLE_SIZE/3, 0, 2*Math.PI);
+                ctx.fill();
+            });
+            
+            // Rotate handle - placed OUTSIDE the box along the outward normal of the top edge
+            const topMid = { x: (corners[0].x + corners[1].x)/2, y: (corners[0].y + corners[1].y)/2 };
+            const rad = crop.angle * Math.PI / 180;
+            // Outward normal for top edge: rotate the upward vector (0, -1) by the box angle
+            const outwardX = Math.sin(rad);
+            const outwardY = -Math.cos(rad);
+            const rotX = topMid.x + outwardX * ROTATE_HANDLE_OFFSET;
+            const rotY = topMid.y + outwardY * ROTATE_HANDLE_OFFSET;
+            ctx.fillStyle = 'white';
+            ctx.beginPath();
+            ctx.arc(rotX, rotY, HANDLE_SIZE/2, 0, 2*Math.PI);
+            ctx.fill();
+            ctx.fillStyle = '#299ACE';
+            ctx.beginPath();
+            ctx.arc(rotX, rotY, HANDLE_SIZE/3, 0, 2*Math.PI);
+            ctx.fill();
+            // Draw connecting line
+            ctx.beginPath();
+            ctx.moveTo(topMid.x, topMid.y);
+            ctx.lineTo(rotX, rotY);
+            ctx.strokeStyle = '#299ACE';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        }
+
+        function updatePreview() {
+            if (!imgLoaded) return;
+            const corners = getCorners();
+            let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+            corners.forEach(c => {
+                minX = Math.min(minX, c.x);
+                minY = Math.min(minY, c.y);
+                maxX = Math.max(maxX, c.x);
+                maxY = Math.max(maxY, c.y);
+            });
+            minX = Math.max(0, minX);
+            minY = Math.max(0, minY);
+            maxX = Math.min(canvas.width, maxX);
+            maxY = Math.min(canvas.height, maxY);
+            if (maxX <= minX || maxY <= minY) return;
+            
+            const scaleX = originalImage.width / canvasImgWidth;
+            const scaleY = originalImage.height / canvasImgHeight;
+            const origMinX = minX * scaleX;
+            const origMinY = minY * scaleY;
+            const origMaxX = maxX * scaleX;
+            const origMaxY = maxY * scaleY;
+            const origW = origMaxX - origMinX;
+            const origH = origMaxY - origMinY;
+            if (origW <= 0 || origH <= 0) return;
+            
+            const tempCanvas = document.createElement('canvas');
+            tempCanvas.width = origW;
+            tempCanvas.height = origH;
+            const tempCtx = tempCanvas.getContext('2d');
+            tempCtx.drawImage(originalImage, origMinX, origMinY, origW, origH, 0, 0, origW, origH);
+            previewImg.src = tempCanvas.toDataURL('image/png');
+            downloadBtn.style.display = 'inline-flex';
+        }
+
+        function hitTest(mouseX, mouseY) {
+            const corners = getCorners();
+            for (let i = 0; i < corners.length; i++) {
+                if (Math.hypot(mouseX - corners[i].x, mouseY - corners[i].y) < HANDLE_SIZE) {
+                    const types = ['tl', 'tr', 'br', 'bl'];
+                    return { type: 'resize', corner: types[i] };
+                }
+            }
+            const topMid = { x: (corners[0].x + corners[1].x)/2, y: (corners[0].y + corners[1].y)/2 };
+            const rad = crop.angle * Math.PI / 180;
+            const outwardX = Math.sin(rad);
+            const outwardY = -Math.cos(rad);
+            const rotX = topMid.x + outwardX * ROTATE_HANDLE_OFFSET;
+            const rotY = topMid.y + outwardY * ROTATE_HANDLE_OFFSET;
+            if (Math.hypot(mouseX - rotX, mouseY - rotY) < HANDLE_SIZE) return { type: 'rotate' };
+            
+            // Move detection (inside rectangle)
+            const rad2 = -crop.angle * Math.PI / 180;
+            const cos2 = Math.cos(rad2);
+            const sin2 = Math.sin(rad2);
+            const localX = (mouseX - crop.cx) * cos2 - (mouseY - crop.cy) * sin2;
+            const localY = (mouseX - crop.cx) * sin2 + (mouseY - crop.cy) * cos2;
+            if (Math.abs(localX) <= crop.width/2 && Math.abs(localY) <= crop.height/2) return { type: 'move' };
+            return null;
+        }
+
+        let isDragging = false;
+        let currentAction = null;
+
+        function getMouseCoord(e) {
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            let mouseX = (e.clientX - rect.left) * scaleX;
+            let mouseY = (e.clientY - rect.top) * scaleY;
+            mouseX = Math.min(Math.max(0, mouseX), canvas.width);
+            mouseY = Math.min(Math.max(0, mouseY), canvas.height);
+            return { x: mouseX, y: mouseY };
+        }
+
+        function onMouseDown(e) {
+            if (!imgLoaded) return;
+            const pos = getMouseCoord(e);
+            const hit = hitTest(pos.x, pos.y);
+            if (!hit) return;
+            isDragging = true;
+            currentAction = hit;
+            dragStart = { x: pos.x, y: pos.y };
+            startCrop = { ...crop };
+            canvas.style.cursor = 'grabbing';
+            e.preventDefault();
+        }
+
+        function onMouseMove(e) {
+            if (!isDragging || !imgLoaded) return;
+            const pos = getMouseCoord(e);
+            const dx = pos.x - dragStart.x;
+            const dy = pos.y - dragStart.y;
+            
+            if (currentAction.type === 'move') {
+                let newCx = startCrop.cx + dx;
+                let newCy = startCrop.cy + dy;
+                const halfW = startCrop.width / 2;
+                const halfH = startCrop.height / 2;
+                newCx = Math.min(Math.max(newCx, halfW), canvas.width - halfW);
+                newCy = Math.min(Math.max(newCy, halfH), canvas.height - halfH);
+                crop.cx = newCx;
+                crop.cy = newCy;
+            } 
+            else if (currentAction.type === 'resize') {
+                const corner = currentAction.corner;
+                let scaleX = 1, scaleY = 1;
+                let newCx = startCrop.cx, newCy = startCrop.cy;
+                if (corner === 'tl') {
+                    scaleX = (startCrop.width - dx) / startCrop.width;
+                    scaleY = (startCrop.height - dy) / startCrop.height;
+                    newCx = startCrop.cx + dx/2;
+                    newCy = startCrop.cy + dy/2;
+                } else if (corner === 'tr') {
+                    scaleX = (startCrop.width + dx) / startCrop.width;
+                    scaleY = (startCrop.height - dy) / startCrop.height;
+                    newCx = startCrop.cx + dx/2;
+                    newCy = startCrop.cy + dy/2;
+                } else if (corner === 'br') {
+                    scaleX = (startCrop.width + dx) / startCrop.width;
+                    scaleY = (startCrop.height + dy) / startCrop.height;
+                    newCx = startCrop.cx + dx/2;
+                    newCy = startCrop.cy + dy/2;
+                } else if (corner === 'bl') {
+                    scaleX = (startCrop.width - dx) / startCrop.width;
+                    scaleY = (startCrop.height + dy) / startCrop.height;
+                    newCx = startCrop.cx + dx/2;
+                    newCy = startCrop.cy + dy/2;
+                }
+                let newW = startCrop.width * scaleX;
+                let newH = startCrop.height * scaleY;
+                if (newW < 20) newW = 20;
+                if (newH < 20) newH = 20;
+                const halfW = newW / 2;
+                const halfH = newH / 2;
+                newCx = Math.min(Math.max(newCx, halfW), canvas.width - halfW);
+                newCy = Math.min(Math.max(newCy, halfH), canvas.height - halfH);
+                crop.width = newW;
+                crop.height = newH;
+                crop.cx = newCx;
+                crop.cy = newCy;
+            } 
+            else if (currentAction.type === 'rotate') {
+                const angleToMouse = Math.atan2(pos.y - startCrop.cy, pos.x - startCrop.cx);
+                const startAngle = Math.atan2(dragStart.y - startCrop.cy, dragStart.x - startCrop.cx);
+                let delta = (angleToMouse - startAngle) * 180 / Math.PI;
+                let newAngle = startCrop.angle + delta;
+                newAngle = newAngle % 360;
+                crop.angle = newAngle;
+            }
+            
+            cropX.value = Math.round(crop.cx);
+            cropY.value = Math.round(crop.cy);
+            cropW.value = Math.round(crop.width);
+            cropH.value = Math.round(crop.height);
+            cropAngle.value = Math.round(crop.angle);
+            drawCanvas();
+            updatePreview();
+        }
+
+        function onMouseUp() {
+            if (isDragging) {
+                isDragging = false;
+                currentAction = null;
+                canvas.style.cursor = 'grab';
+            }
+        }
+
+        canvas.addEventListener('mousedown', onMouseDown);
+        window.addEventListener('mousemove', onMouseMove);
+        window.addEventListener('mouseup', onMouseUp);
+        canvas.style.cursor = 'grab';
+
+        function updateFromInputs() {
+            if (!imgLoaded) return;
+            let x = parseInt(cropX.value) || crop.cx;
+            let y = parseInt(cropY.value) || crop.cy;
+            let w = parseInt(cropW.value) || crop.width;
+            let h = parseInt(cropH.value) || crop.height;
+            let ang = parseInt(cropAngle.value) || 0;
+            const halfW = w/2;
+            const halfH = h/2;
+            x = Math.min(Math.max(x, halfW), canvas.width - halfW);
+            y = Math.min(Math.max(y, halfH), canvas.height - halfH);
+            if (w < 20) w = 20;
+            if (h < 20) h = 20;
+            crop = { cx: x, cy: y, width: w, height: h, angle: ang };
+            cropX.value = Math.round(crop.cx);
+            cropY.value = Math.round(crop.cy);
+            cropW.value = Math.round(crop.width);
+            cropH.value = Math.round(crop.height);
+            cropAngle.value = Math.round(crop.angle);
+            drawCanvas();
+            updatePreview();
+        }
+
+        cropX.addEventListener('input', updateFromInputs);
+        cropY.addEventListener('input', updateFromInputs);
+        cropW.addEventListener('input', updateFromInputs);
+        cropH.addEventListener('input', updateFromInputs);
+        cropAngle.addEventListener('input', updateFromInputs);
+
+        uploadArea.onclick = () => fileInput.click();
+        fileInput.onchange = (e) => e.target.files[0] && handleFile(e.target.files[0]);
+        uploadArea.ondragover = (e) => e.preventDefault();
+        uploadArea.ondrop = (e) => {
+            e.preventDefault();
+            if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+        };
+
+        function handleFile(file) {
+            if (!file.type.startsWith('image/')) {
+                showMessage('Please select an image file', 'error');
+                return;
+            }
+            if (file.size > 50 * 1024 * 1024) {
+                showMessage('File too large (max 50MB)', 'error');
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                originalImage.onload = () => {
+                    const maxWidth = 600;
+                    const scale = Math.min(maxWidth / originalImage.width, 1);
+                    canvasImgWidth = originalImage.width * scale;
+                    canvasImgHeight = originalImage.height * scale;
+                    canvas.width = canvasImgWidth;
+                    canvas.height = canvasImgHeight;
+                    ctx.drawImage(originalImage, 0, 0, canvasImgWidth, canvasImgHeight);
+                    crop = {
+                        cx: canvasImgWidth / 2,
+                        cy: canvasImgHeight / 2,
+                        width: Math.min(300, canvasImgWidth * 0.7),
+                        height: Math.min(200, canvasImgHeight * 0.7),
+                        angle: 0
+                    };
+                    cropX.value = Math.round(crop.cx);
+                    cropY.value = Math.round(crop.cy);
+                    cropW.value = Math.round(crop.width);
+                    cropH.value = Math.round(crop.height);
+                    cropAngle.value = 0;
+                    imgLoaded = true;
+                    uploadArea.style.display = 'none';
+                    toolContainer.style.display = 'block';
+                    drawCanvas();
+                    updatePreview();
+                    showMessage('Image loaded. Drag box, corners, or rotate handle.', 'success');
+                };
+                originalImage.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function downloadImage() {
+            if (previewImg.src && previewImg.src !== '') {
+                const link = document.createElement('a');
+                link.download = `cropped_${Date.now()}.png`;
+                link.href = previewImg.src;
+                link.click();
+                showMessage('Image downloaded!', 'success');
+            }
+        }
+
+        function reset() {
+            imgLoaded = false;
+            toolContainer.style.display = 'none';
+            uploadArea.style.display = 'block';
+            fileInput.value = '';
+            downloadBtn.style.display = 'none';
+            messageDiv.innerHTML = '';
+            previewImg.src = '';
+        }
+
+        downloadBtn.onclick = downloadImage;
+        resetBtn.onclick = reset;
+    })();
+</script>
+</body>
+</html>

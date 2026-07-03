@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Image to HD Converter - Enhance Photo Quality Online | PicShift</title>
+    <meta name="description" content="Enhance and upscale image quality online for free. Improve resolution and contrast of blurry or low-res photos instantly in your browser.">
+    <meta name="keywords" content="upscale image online, image to hd converter, enhance photo quality, free photo enhancer, fix blurry image online">
+    <meta name="author" content="VaultKit Technologies">
+    <link rel="canonical" href="https://picshift.me/image-to-hd.html">
+    <!-- Open Graph (Facebook/WhatsApp/LinkedIn) -->
+    <meta property="og:title" content="Image to HD Converter - Enhance Photo Quality Online | PicShift">
+    <meta property="og:description" content="Enhance and upscale image quality online for free. Improve resolution and contrast of blurry or low-res photos instantly in your browser.">
+    <meta property="og:url" content="https://picshift.me/image-to-hd.html">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://picshift.me/logo.png">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Image to HD Converter - Enhance Photo Quality Online | PicShift">
+    <meta name="twitter:description" content="Enhance and upscale image quality online for free. Improve resolution and contrast of blurry or low-res photos instantly in your browser.">
+    <meta name="twitter:image" content="https://picshift.me/logo.png">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Image Quality Enhancer",
+      "url": "https://picshift.me/image-to-hd.html",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires HTML5 canvas support",
+      "description": "Enhance and upscale image quality online for free. Improve resolution and contrast of blurry or low-res photos instantly in your browser.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    
+    
+    
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="global.js" defer></script>
+    <style>
+.page-title {
+ font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
+
+.page-subtitle {
+ color: #64748B; margin-bottom: 2rem; }
+
+.preview-container {
+
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            margin: 1.5rem 0;
+        }
+
+.preview-card {
+
+            flex: 1;
+            min-width: 250px;
+            background: #F8FAFC;
+            border-radius: 20px;
+            padding: 1.2rem;
+            text-align: center;
+        }
+
+.preview-card img {
+
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 12px;
+            margin: 0.8rem 0;
+            background: white;
+        }
+
+.info-badge {
+
+            background: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+.scale-control {
+
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+.scale-control label {
+
+            font-weight: 600;
+            margin-right: 0.5rem;
+            color: #299ACE;
+        }
+
+.scale-control select {
+
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            border: 1px solid #E2E8F0;
+            background: white;
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+.how-to {
+
+            background: #F0F9FF;
+            border-radius: 20px;
+            padding: 1rem;
+            margin-top: 1.5rem;
+            border-left: 4px solid #299ACE;
+        }
+
+@media (max-width: 768px) {
+.preview-container {
+ flex-direction: column; }
+}
+    </style>
+</head>
+<body>
+
+<main class="main-container">
+    <div class="tool-card">
+        <div class="tool-status">⚡ 100% Client-Side | No Upload</div>
+        <h1 class="page-title">Image to HD Upscaler</h1>
+        <p class="page-subtitle">Automatically upscale your images to higher resolution. Adjust factor anytime.</p>
+
+        <div id="uploadArea" class="upload-area">
+            <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+            <div class="upload-title">Drop your image here or click to browse</div>
+            <div class="upload-subtitle">Supports JPG, PNG, WebP, GIF | Max 50MB</div>
+            <input type="file" id="fileInput" accept="image/*" style="display: none;">
+        </div>
+
+        <div id="toolContainer" style="display: none;">
+            <div class="scale-control">
+                <label>Upscale Factor:</label>
+                <select id="scaleFactor">
+                    <option value="2">2x (Double Size)</option>
+                    <option value="3">3x (Triple Size)</option>
+                    <option value="4">4x (Quadruple Size)</option>
+                </select>
+            </div>
+            <div class="preview-container">
+                <div class="preview-card">
+                    <h4><i class="fas fa-image"></i> Original</h4>
+                    <img id="originalPreview" alt="Original">
+                    <div id="originalInfo" class="info-badge"></div>
+                </div>
+                <div class="preview-card">
+                    <h4><i class="fas fa-star"></i> Upscaled (HD)</h4>
+                    <img id="upscaledPreview" alt="Upscaled">
+                    <div id="upscaledInfo" class="info-badge"></div>
+                </div>
+            </div>
+            <div class="btn-group">
+                <button id="downloadBtn" class="btn btn-success" style="display: none;"><i class="fas fa-download"></i> Download HD Image</button>
+                <button id="resetBtn" class="btn btn-secondary"><i class="fas fa-trash-alt"></i> Clear All</button>
+            </div>
+        </div>
+
+        <div id="messageArea"></div>
+
+        <div class="how-to">
+            <h3><i class="fas fa-info-circle"></i> How to use</h3>
+            <ul style="margin-left: 1.5rem;">
+                <li>1. Upload an image – the HD version is generated instantly.</li>
+                <li>2. Change the upscale factor to see the result update live.</li>
+                <li>3. Download your HD image.</li>
+            </ul>
+            <p style="margin-top: 0.5rem;">Note: Simple scaling enlarges pixels; for best results use high-quality originals.</p>
+        </div>
+
+        <div class="trust-badge">
+            <h3><i class="fas fa-lock"></i> 100% Private & Secure</h3>
+            <p>All processing happens in your browser. No upload, no server.</p>
+        </div>
+
+        <div class="related-tools">
+            <h3>Related Tools</h3>
+            <div class="related-tools-list">
+                <a href="compress-image.html" class="related-tool-link"><i class="fas fa-compress-alt"></i> Compress</a>
+                <a href="resize-image.html" class="related-tool-link"><i class="fas fa-expand-alt"></i> Resize</a>
+                <a href="brightness.html" class="related-tool-link"><i class="fas fa-sun"></i> Brightness</a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    const uploadArea = document.getElementById('uploadArea');
+    const fileInput = document.getElementById('fileInput');
+    const toolContainer = document.getElementById('toolContainer');
+    const originalPreview = document.getElementById('originalPreview');
+    const upscaledPreview = document.getElementById('upscaledPreview');
+    const originalInfo = document.getElementById('originalInfo');
+    const upscaledInfo = document.getElementById('upscaledInfo');
+    const scaleFactorSelect = document.getElementById('scaleFactor');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const messageDiv = document.getElementById('messageArea');
+
+    let originalImage = new Image();
+    let upscaledDataUrl = null;
+    let originalFile = null;
+
+    function showMessage(msg, type) {
+        messageDiv.innerHTML = `<div class="${type}-message">${msg}</div>`;
+        setTimeout(() => messageDiv.innerHTML = '', 3000);
+    }
+
+    function formatFileSize(bytes) {
+        if (bytes < 1024) return bytes + ' B';
+        if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(2) + ' KB';
+        return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+    }
+
+    // Perform upscaling with current factor
+    function performUpscale() {
+        if (!originalImage.complete || originalImage.width === 0) return;
+        const factor = parseInt(scaleFactorSelect.value);
+        const newWidth = originalImage.width * factor;
+        const newHeight = originalImage.height * factor;
+        
+        const canvas = document.createElement('canvas');
+        canvas.width = newWidth;
+        canvas.height = newHeight;
+        const ctx = canvas.getContext('2d');
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
+        ctx.drawImage(originalImage, 0, 0, newWidth, newHeight);
+        
+        upscaledDataUrl = canvas.toDataURL('image/png');
+        upscaledPreview.src = upscaledDataUrl;
+        const upscaledSize = Math.round((upscaledDataUrl.length * 3) / 4);
+        upscaledInfo.innerHTML = `${newWidth} x ${newHeight} • ${formatFileSize(upscaledSize)}`;
+        downloadBtn.style.display = 'inline-flex';
+    }
+
+    // Handle file upload
+    function handleFile(file) {
+        if (!file.type.startsWith('image/')) {
+            showMessage('Please select an image file', 'error');
+            return;
+        }
+        if (file.size > 50 * 1024 * 1024) {
+            showMessage('File too large (max 50MB)', 'error');
+            return;
+        }
+        originalFile = file;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            originalImage.onload = () => {
+                originalPreview.src = e.target.result;
+                originalInfo.innerHTML = `${originalImage.width} x ${originalImage.height} • ${formatFileSize(file.size)}`;
+                uploadArea.style.display = 'none';
+                toolContainer.style.display = 'block';
+                // Initial upscale
+                performUpscale();
+                showMessage('Image upscaled automatically! Change factor to update.', 'success');
+            };
+            originalImage.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+
+    // Event listeners
+    uploadArea.onclick = () => fileInput.click();
+    fileInput.onchange = (e) => e.target.files[0] && handleFile(e.target.files[0]);
+    uploadArea.ondragover = (e) => e.preventDefault();
+    uploadArea.ondrop = (e) => {
+        e.preventDefault();
+        if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+    };
+    scaleFactorSelect.addEventListener('change', () => {
+        if (originalImage.complete && originalImage.width > 0) {
+            performUpscale();
+            showMessage(`Upscaled to ${scaleFactorSelect.value}x`, 'success');
+        }
+    });
+
+    function downloadHD() {
+        if (!upscaledDataUrl) return;
+        const link = document.createElement('a');
+        link.download = `hd_upscaled_${Date.now()}.png`;
+        link.href = upscaledDataUrl;
+        link.click();
+        showMessage('HD image downloaded!', 'success');
+    }
+
+    function reset() {
+        originalImage = new Image();
+        upscaledDataUrl = null;
+        originalFile = null;
+        toolContainer.style.display = 'none';
+        uploadArea.style.display = 'block';
+        fileInput.value = '';
+        downloadBtn.style.display = 'none';
+        messageDiv.innerHTML = '';
+        originalPreview.src = '';
+        upscaledPreview.src = '';
+        scaleFactorSelect.value = '2';
+    }
+
+    downloadBtn.onclick = downloadHD;
+    resetBtn.onclick = reset;
+</script>
+</body>
+</html>
