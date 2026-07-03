@@ -4,16 +4,7 @@
  */
 
 (function () {
-    // 1. Initialize Dark Mode immediately to prevent flashing
-    const savedTheme = localStorage.getItem('picshift-theme');
-    const isDark = savedTheme === 'dark'; // Light theme is default! Only dark if user explicitly selected it.
-    
-    if (isDark) {
-        document.documentElement.classList.add('dark-mode');
-        document.addEventListener('DOMContentLoaded', () => {
-            document.body.classList.add('dark-mode');
-        });
-    }
+
 
     // Navigation and Footer data structures
     const toolsData = {
@@ -80,9 +71,7 @@
         // Render Footer
         renderFooter();
 
-        // Initialize Theme Toggle functionality
-        initThemeToggle();
-
+        
         // Initialize Mobile Bottom Sheet
         initBottomSheet();
     });
@@ -141,11 +130,7 @@
                             </div>
                         </div>
                     </li>
-                    <li>
-                        <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Theme">
-                            <i class="fas ${document.documentElement.classList.contains('dark-mode') ? 'fa-sun' : 'fa-moon'}"></i>
-                        </button>
-                    </li>
+                    
                 </ul>
             </div>
         `;
@@ -164,9 +149,7 @@
                 <span style="font-size: 1.15rem;">PicShift</span>
             </a>
             <span class="mobile-page-title">${pageTitle.length > 20 ? pageTitle.substring(0, 18) + '...' : pageTitle}</span>
-            <button class="theme-toggle-btn" id="themeToggleBtnMobile" style="margin-left: 0; width: 34px; height: 34px;">
-                <i class="fas ${document.documentElement.classList.contains('dark-mode') ? 'fa-sun' : 'fa-moon'}"></i>
-            </button>
+            
         `;
 
         // 2. Bottom nav bar
@@ -292,26 +275,7 @@
         document.body.appendChild(footer);
     }
 
-    // --- THEME TOGGLE ---
-    function initThemeToggle() {
-        const toggleBtn = document.getElementById('themeToggleBtn');
-        const toggleBtnMobile = document.getElementById('themeToggleBtnMobile');
-
-        const toggleAction = () => {
-            const isDark = document.body.classList.toggle('dark-mode');
-            document.documentElement.classList.toggle('dark-mode', isDark);
-            localStorage.setItem('picshift-theme', isDark ? 'dark' : 'light');
-            
-            // Update icons
-            const iconClass = isDark ? 'fa-sun' : 'fa-moon';
-            if (toggleBtn) toggleBtn.querySelector('i').className = `fas ${iconClass}`;
-            if (toggleBtnMobile) toggleBtnMobile.querySelector('i').className = `fas ${iconClass}`;
-        };
-
-        if (toggleBtn) toggleBtn.addEventListener('click', toggleAction);
-        if (toggleBtnMobile) toggleBtnMobile.addEventListener('click', toggleAction);
-    }
-
+    
     // --- MOBILE BOTTOM SHEET DRAWER ---
     function initBottomSheet() {
         const moreBtn = document.getElementById('mobileMoreBtn');

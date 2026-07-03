@@ -208,5 +208,211 @@
     </div>
 </main>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+    const uploadArea = document.getElementById('uploadArea');
+    const fileInput = document.getElementById('fileInput');
+    const imageListContainer = document.getElementById('imageListContainer');
+    const imageList = document.getElementById('imageList');
+    const singlePdfBtn = document.getElementById('singlePdfBtn');
+    const allSeparateBtn = document.getElementById('allSeparateBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const messageDiv = document.getElementById('messageArea');
+
+    let images = []; // store { file, dataUrl, name, size }
+
+    function showMessage(msg, type) {
+        messageDiv.innerHTML = `<div class="${type}-message">${msg}</div>`;
+        setTimeout(() => messageDiv.innerHTML = '', 4000);
+    }
+
+    function formatFileSize(bytes) {
+        if (bytes < 1024) return bytes + ' B';
+        if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(2) + ' KB';
+        return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+    }
+
+    // Convert an image element to PDF blob
+    async function imageToPdfBlob(imgElement) {
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF({
+            unit: 'mm',
+            format: 'a4',
+            orientation: 'portrait'
+        });
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const pageHeight = pdf.internal.pageSize.getHeight();
+        const imgWidth = imgElement.width;
+        const imgHeight = imgElement.height;
+        const ratio = imgWidth / imgHeight;
+        let drawWidth = pageWidth - 20;
+        let drawHeight = drawWidth / ratio;
+        if (drawHeight > pageHeight - 20) {
+            drawHeight = pageHeight - 20;
+            drawWidth = drawHeight * ratio;
+        }
+        const x = (pageWidth - drawWidth) / 2;
+        const y = (pageHeight - drawHeight) / 2;
+        pdf.addImage(imgElement, 'JPEG', x, y, drawWidth, drawHeight);
+        return pdf.output('blob');
+    }
+
+    // Download a single PDF from an image object
+    async function downloadSinglePdf(imageObj, index) {
+        const img = await new Promise((resolve) => {
+            const imgEl = new Image();
+            imgEl.onload = () => resolve(imgEl);
+            imgEl.src = imageObj.dataUrl;
+        });
+        const pdfBlob = await imageToPdfBlob(img);
+        const link = document.createElement('a');
+        const baseName = imageObj.name.replace(/\.[^/.]+$/, '');
+        link.download = `${baseName}.pdf`;
+        link.href = URL.createObjectURL(pdfBlob);
+        link.click();
+        URL.revokeObjectURL(link.href);
+        showMessage(`Downloaded: ${baseName}.pdf`, 'success');
+    }
+
+    // Render image list with individual PDF buttons
+    function renderImageList() {
+        if (images.length === 0) {
+            imageListContainer.style.display = 'none';
+            uploadArea.style.display = 'block';
+            return;
+        }
+        uploadArea.style.display = 'none';
+        imageListContainer.style.display = 'block';
+        imageList.innerHTML = '';
+        images.forEach((img, index) => {
+            const div = document.createElement('div');
+            div.className = 'image-item';
+            div.innerHTML = `
+                <img src="${img.dataUrl}" alt="${img.name}">
+                <div class="info">
+                    <div class="name">${img.name}</div>
+                    <div class="size">${formatFileSize(img.size)}</div>
+                </div>
+                <button class="pdf-single-btn" data-index="${index}"><i class="fas fa-file-pdf"></i> PDF</button>
+                <button class="remove-btn" data-index="${index}"><i class="fas fa-times"></i></button>
+            `;
+            imageList.appendChild(div);
+        });
+        // Individual PDF buttons
+        document.querySelectorAll('.pdf-single-btn').forEach(btn => {
+            btn.addEventListener('click', async (e) => {
+                const idx = parseInt(btn.dataset.index);
+                await downloadSinglePdf(images[idx], idx);
+            });
+        });
+        // Remove buttons
+        document.querySelectorAll('.remove-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const idx = parseInt(btn.dataset.index);
+                images.splice(idx, 1);
+                renderImageList();
+                showMessage('Image removed', 'success');
+            });
+        });
+    }
+
+    function handleFiles(files) {
+        let totalSize = 0;
+        for (let img of images) totalSize += img.size;
+        for (let file of files) {
+            if (!file.type.startsWith('image/')) {
+                showMessage(`Skipped: ${file.name} is not an image`, 'error');
+                continue;
+            }
+            if (file.size > 50 * 1024 * 1024) {
+                showMessage(`Skipped: ${file.name} exceeds 50MB`, 'error');
+                continue;
+            }
+            totalSize += file.size;
+            if (totalSize > 50 * 1024 * 1024) {
+                showMessage('Total size exceeds 50MB. Please remove some images.', 'error');
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                images.push({
+                    file: file,
+                    dataUrl: e.target.result,
+                    name: file.name,
+                    size: file.size
+                });
+                renderImageList();
+                showMessage(`Added: ${file.name}`, 'success');
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    uploadArea.onclick = () => fileInput.click();
+    fileInput.onchange = (e) => {
+        if (e.target.files.length) handleFiles(Array.from(e.target.files));
+        fileInput.value = '';
+    };
+    uploadArea.ondragover = (e) => e.preventDefault();
+    uploadArea.ondrop = (e) => {
+        e.preventDefault();
+        if (e.dataTransfer.files.length) handleFiles(Array.from(e.dataTransfer.files));
+    };
+
+    clearBtn.onclick = () => {
+        images = [];
+        renderImageList();
+        showMessage('All images cleared', 'success');
+    };
+
+    // Single PDF combining all images
+    singlePdfBtn.onclick = async () => {
+        if (images.length === 0) {
+            showMessage('Please add at least one image', 'error');
+            return;
+        }
+        showMessage('Generating single PDF...', 'success');
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const pageHeight = pdf.internal.pageSize.getHeight();
+        
+        for (let i = 0; i < images.length; i++) {
+            if (i > 0) pdf.addPage();
+            const img = await new Promise((resolve) => {
+                const imgEl = new Image();
+                imgEl.onload = () => resolve(imgEl);
+                imgEl.src = images[i].dataUrl;
+            });
+            const ratio = img.width / img.height;
+            let drawWidth = pageWidth - 20;
+            let drawHeight = drawWidth / ratio;
+            if (drawHeight > pageHeight - 20) {
+                drawHeight = pageHeight - 20;
+                drawWidth = drawHeight * ratio;
+            }
+            const x = (pageWidth - drawWidth) / 2;
+            const y = (pageHeight - drawHeight) / 2;
+            pdf.addImage(img, 'JPEG', x, y, drawWidth, drawHeight);
+        }
+        pdf.save(`combined_${Date.now()}.pdf`);
+        showMessage('Single PDF downloaded!', 'success');
+    };
+
+    // Download all images as separate PDFs (one after another)
+    allSeparateBtn.onclick = async () => {
+        if (images.length === 0) {
+            showMessage('Please add at least one image', 'error');
+            return;
+        }
+        showMessage(`Preparing ${images.length} PDF(s)... They will download one by one.`, 'success');
+        for (let i = 0; i < images.length; i++) {
+            await downloadSinglePdf(images[i], i);
+            // Small delay to avoid browser blocking multiple downloads
+            await new Promise(r => setTimeout(r, 500));
+        }
+        showMessage('All PDFs downloaded!', 'success');
+    };
+</script>
 </body>
 </html>
