@@ -49,11 +49,11 @@
  font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
 
 .page-subtitle {
- color: #64748B; margin-bottom: 2rem; font-size: 1rem; }
+ color: var(--text-secondary); margin-bottom: 2rem; font-size: 1rem; }
 
 .editor-container {
 
-            background: #F1F5F9;
+            background: var(--bg-input);
             border-radius: 20px;
             padding: 1rem;
             margin-bottom: 1rem;
@@ -78,7 +78,7 @@ canvas:active {
 
 .toolbar {
 
-            background: #F8FAFC;
+            background: var(--bg-input);
             padding: 0.8rem;
             border-radius: 16px;
             margin: 1rem 0;
@@ -91,8 +91,8 @@ canvas:active {
 
 .toolbar-btn {
 
-            background: white;
-            border: 1px solid #E2E8F0;
+            background: var(--bg-card);
+            border: 1px solid var(--border-main);
             padding: 0.4rem 0.8rem;
             border-radius: 8px;
             cursor: pointer;
@@ -102,17 +102,17 @@ canvas:active {
         }
 
 .toolbar-btn:hover {
- border-color: #299ACE; color: #299ACE; }
+ border-color: var(--primary-main); color: var(--primary-main); }
 
 .toolbar-btn.active {
- background: #299ACE; color: white; border-color: #299ACE; }
+ background: #299ACE; color: white; border-color: var(--primary-main); }
 
 .toolbar-select {
 
             padding: 0.4rem;
-            border: 1px solid #E2E8F0;
+            border: 1px solid var(--border-main);
             border-radius: 8px;
-            background: white;
+            background: var(--bg-card);
             font-family: inherit;
             font-size: 0.85rem;
         }
@@ -122,7 +122,7 @@ canvas:active {
 
 .controls-panel {
 
-            background: #F8FAFC;
+            background: var(--bg-input);
             padding: 1rem;
             border-radius: 16px;
             margin: 1rem 0;
@@ -144,7 +144,7 @@ canvas:active {
             font-size: 0.75rem;
             font-weight: 600;
             margin-bottom: 0.3rem;
-            color: #299ACE;
+            color: var(--primary-main);
         }
 
 .control-group input, .control-group select {
@@ -152,7 +152,7 @@ canvas:active {
             width: 100%;
             padding: 0.5rem;
             font-size: 0.85rem;
-            border: 1px solid #E2E8F0;
+            border: 1px solid var(--border-main);
             border-radius: 8px;
             font-family: inherit;
         }
@@ -163,7 +163,7 @@ canvas:active {
             width: 28px;
             height: 28px;
             border-radius: 8px;
-            border: 1px solid #E2E8F0;
+            border: 1px solid var(--border-main);
             margin-left: 8px;
             vertical-align: middle;
         }

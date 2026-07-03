@@ -6,8 +6,7 @@
 (function () {
     // 1. Initialize Dark Mode immediately to prevent flashing
     const savedTheme = localStorage.getItem('picshift-theme');
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const isDark = savedTheme === 'dark' || (!savedTheme && systemPrefersDark);
+    const isDark = savedTheme === 'dark'; // Light theme is default! Only dark if user explicitly selected it.
     
     if (isDark) {
         document.documentElement.classList.add('dark-mode');
